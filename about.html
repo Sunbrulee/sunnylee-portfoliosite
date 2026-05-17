@@ -259,46 +259,34 @@
     outline-offset: 2px;
   }
 
-  .photo-meta { display: none; }
-
-  /* Mobile touch targets */
+  /* Mobile */
   @media (max-width: 768px) {
-    .container { padding: 24px 24px 60px; }
+    .container { padding: 24px 20px 60px; }
     nav { padding-bottom: 40px; }
     nav ul { gap: 20px; font-size: 11px; }
     nav ul a { min-height: 44px; display: flex; align-items: center; }
 
-    /* About grid: collapse to single column, photo first */
+    /* Collapse 2-col grid to single column: photo on top, text below */
     .about-grid {
       grid-template-columns: 1fr;
-      gap: 36px;
+      gap: 32px;
       margin-bottom: 64px;
     }
 
-    /* Photo: un-sticky on mobile, centered, smaller */
+    /* Photo col: un-sticky, left-align, shrink */
     .photo-wrap {
       position: static;
       align-items: flex-start;
       flex-direction: row;
       gap: 20px;
     }
-    .photo {
-      width: 96px;
-      height: 96px;
-      flex-shrink: 0;
-    }
-    .photo-meta { display: flex; }
-    .photo-name { text-align: left; font-size: 17px; }
-    .photo-role { text-align: left; font-size: 11px; }
+    .photo { width: 88px; height: 88px; }
 
-    /* Eyebrow: less margin on mobile */
-    .eyebrow { font-size: 11px; margin-bottom: 28px; }
-
-    /* a11y: 15px minimum for all body text */
-    .about-text p { font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+    /* a11y: body text 15px floor */
+    .eyebrow { font-size: 11px; margin-bottom: 24px; }
+    .about-text p { font-size: 15px; line-height: 1.72; margin-bottom: 20px; }
     .about-text p:first-of-type { font-size: clamp(18px, 4.5vw, 22px); }
-
-    .through-line { padding: 22px 24px; margin-top: 28px; margin-bottom: 24px; }
+    .through-line { padding: 20px 22px; margin-top: 24px; margin-bottom: 20px; }
     .through-line p { font-size: clamp(16px, 4vw, 19px); }
 
     footer { grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -327,10 +315,6 @@
 
     <div class="photo-wrap">
       <img src="sunny-photo.png" alt="Sunny Lee" class="photo">
-      <div class="photo-meta">
-        <div class="photo-name">Sunny Lee</div>
-        <div class="photo-role">Experience Design Leader</div>
-      </div>
     </div>
 
     <div class="about-text">
