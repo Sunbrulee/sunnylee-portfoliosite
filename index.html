@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunny Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+
+  /* TOKENS */
+  :root {
+    --sage:        #8FB593;
+    --sage-dim:    rgba(122, 158, 126, 0.22);
+    --sage-line:   rgba(122, 158, 126, 0.55);
+    --ochre:       #C8A84B;
+    --bg:          #2F2F2F;
+    --bg-soft:     #363636;
+    --ink:         #F5F2ED;
+    --rule:        rgba(245, 242, 237, 0.13);
+    --muted:       #C8C4BE;
+    --topo-stroke: #F5F2ED;
+    --toggle-icon: '○';
+  }
+
+  [data-theme="light"] {
+    --bg:          #F0EDE7;
+    --bg-soft:     #E8E4DC;
+    --ink:         #1E1C1A;
+    --rule:        rgba(30, 28, 26, 0.13);
+    --muted:       rgba(30, 28, 26, 0.48);
+    --topo-stroke: #1E1C1A;
+    --toggle-icon: '●';
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.005em;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* GRAIN */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.038 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    opacity: 0.9;
+  }
+
+  /* TOPO */
+  /* THEME TOGGLE */
+
+  /* CONTAINER */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 40px 88px 96px;
+  }
+
+  /* NAV */
+  nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding-bottom: 110px;
+  }
+
+  .marque {
+    font-family: 'Archivo', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .marque em { font-style: italic; font-weight: 300; color: var(--muted); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 44px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  nav ul a {
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.72;
+    position: relative;
+    transition: opacity 0.2s ease;
+  }
+
+  nav ul a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--sage);
+    transition: width 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  nav ul a:hover { opacity: 1; }
+  nav ul a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: 120px;
+    align-items: end;
+    padding-bottom: 60px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 200;
+    font-size: clamp(68px, 8.5vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+  }
+
+  h1 em { font-style: italic; font-weight: 200; }
+
+  .lede {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.65;
+    letter-spacing: 0.005em;
+    color: var(--muted);
+    max-width: 34ch;
+    padding-bottom: 12px;
+  }
+
+  /* WORK INDEX */
+  .index-head {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 32px 0 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .index-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+  }
+
+  .index-meta {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .work { display: flex; flex-direction: column; }
+
+  .work-row {
+    display: grid;
+    grid-template-columns: 56px 1fr 1.4fr 0.6fr 88px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+    position: relative;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      padding 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .work-row.revealed { opacity: 1; transform: translateY(0); }
+
+  .work-row::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: -10px;
+    background: var(--sage-dim);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+    border-radius: 2px;
+  }
+
+  .work-row:hover::before { transform: scaleX(1); }
+  .work-row:hover { padding-left: 16px; }
+  .work-row:hover .num { color: var(--sage-line); }
+
+  .num {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  .title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 28px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .ctx { font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+  .role {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .year {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  /* STATEMENT */
+  .statement {
+    margin: 200px 0 160px;
+    max-width: 720px;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .statement.revealed { opacity: 1; transform: translateY(0); }
+
+  .statement p {
+    font-family: 'Archivo', sans-serif;
+    font-size: 32px;
+    line-height: 1.38;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .statement p em { font-style: italic; font-weight: 300; color: var(--sage); }
+
+  .signature {
+    margin-top: 56px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .signature::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  footer h6 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    position: relative;
+    width: fit-content;
+    transition: color 0.2s ease;
+  }
+
+  footer a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--sage);
+    transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  footer a:hover { color: var(--ink); }
+  footer a:hover::after { width: 100%; }
+
+  .colophon {
+    grid-column: 1 / -1;
+    margin-top: 80px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+  }
+
+  /* OVERLAY */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .overlay.open { opacity: 1; pointer-events: all; }
+
+  .overlay-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 56px;
+    border-bottom: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .back-btn:hover { color: var(--sage); }
+
+  .back-arrow { font-size: 14px; }
+
+  .overlay-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .counter {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .arrows { display: flex; gap: 8px; }
+
+  .arr {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    width: 34px; height: 34px;
+    border-radius: 2px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .arr:hover:not(:disabled) { border-color: var(--sage); color: var(--sage); }
+  .arr:disabled { opacity: 0.2; cursor: default; }
+
+  .overlay-scroll { flex: 1; overflow-y: auto; padding: 52px 56px 80px; }
+  .overlay-content { max-width: 740px; }
+
+  .o-kicker {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .o-kicker::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  .o-title {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 400;
+    line-height: 0.93;
+    letter-spacing: -0.025em;
+    margin-bottom: 44px;
+  }
+
+  .o-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9E9A94;
+    margin-bottom: 16px;
+    margin-top: 36px;
+  }
+
+  .o-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .o-list li {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #D4D0CA;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .o-list li::before {
+    content: '●';
+    position: absolute;
+    left: 0;
+    color: var(--sage);
+    font-size: 8px;
+    top: 5px;
+  }
+
+  /* Context card — sage */
+  .o-signal-wrap {
+    display: flex;
+    gap: 0;
+    margin-bottom: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(122, 158, 126, 0.08);
+    align-items: stretch;
+  }
+
+  .o-signal-img {
+    width: 160px;
+    min-width: 160px;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+    align-self: stretch;
+  }
+
+  .o-signal-img-placeholder {
+    width: 160px;
+    min-width: 160px;
+    background: rgba(122, 158, 126, 0.15);
+    flex-shrink: 0;
+  }
+
+  .o-signal {
+    margin: 0;
+    padding: 28px 32px;
+    background: transparent;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(17px, 1.9vw, 24px);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--sage);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .o-signal::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1.5px;
+    background: var(--sage);
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  /* Leadership signal card — ochre */
+  .o-leadership-wrap {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(200, 168, 75, 0.08);
+    align-items: stretch;
+  }
+
+  .o-leadership-icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 0 28px 24px;
+    flex-shrink: 0;
+  }
+
+  .o-leadership-icon-inner {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(200, 168, 75, 0.12);
+    border: 1px solid rgba(200, 168, 75, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .o-leadership-icon-inner img {
+    width: 26px; height: 26px;
+    object-fit: contain;
+    filter: invert(72%) sepia(28%) saturate(600%) hue-rotate(5deg) brightness(95%);
+  }
+
+  .o-leadership {
+    margin: 0;
+    padding: 28px 28px 28px 16px;
+    background: transparent;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(17px, 1.9vw, 24px);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ochre);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .o-leadership::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1.5px;
+    background: var(--ochre);
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+
+  /* PAGE TRANSITION */
+  .container {
+    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  /* THREE AREAS — home page */
+  .l-areas-home {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0 80px;
+    max-width: 900px;
+  }
+  .l-area-home {
+    padding: 40px 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 80px;
+    align-items: start;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .l-area-home.revealed { opacity: 1; transform: translateY(0); }
+  .l-area-home-label {
+    font-family: 'Archivo', sans-serif;
+    font-size: 26px;
+    font-weight: 200;
+    font-style: italic;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    padding-top: 4px;
+  }
+  .l-area-home-label em { font-style: italic; color: var(--sage); }
+  .l-area-home-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+
+  /* ACCESSIBILITY */
+  .skip-link {
+    position: absolute;
+    top: -40px; left: 0;
+    background: #8FB593;
+    color: #2F2F2F;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 200;
+    text-decoration: none;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+  
+  /* Focus styles */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #8FB593;
+    outline-offset: 2px;
+  }
+
+  /* Mobile touch targets */
+  @media (max-width: 768px) {
+    nav ul { gap: 24px; }
+    nav ul a { min-height: 44px; display: flex; align-items: center; }
+    .work-row { grid-template-columns: 40px 1fr; gap: 16px; padding: 24px 0; }
+    .role, .year { display: none; }
+    .title { font-size: clamp(20px, 2.2vw, 28px); }
+    .ctx { font-size: 14px; }
+    .container { padding: 24px 24px 60px; }
+    nav { padding-bottom: 48px; }
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-bottom: 60px; }
+    h1 { font-size: clamp(48px, 12vw, 80px); }
+    .lede { font-size: 14px; max-width: 100%; }
+    .l-areas-home { margin: 32px 0 48px; }
+    .l-area-home { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+    footer { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .colophon { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<div class="container" id="main-content">
+
+  <nav>
+    <a href="index.html" style="text-decoration:none;color:inherit;"><div class="marque">Sunny Lee</div></a>
+    <ul>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="leadership.html">Approach</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Design Leadership</div>
+      <h1>Leading through <em style="color:var(--sage);">transformation.</em></h1>
+    </div>
+    <p class="lede">Design leadership for organizations navigating complexity and transformation.<br>Behind every great product experience is clarity, alignment, and trust. That's the work I do.</p>
+  </section>
+
+  <!-- THREE LEADERSHIP AREAS -->
+  <section class="l-areas-home">
+
+    <div class="l-area-home">
+      <div class="l-area-home-label">Building Through <em>Uncertainty.</em></div>
+      <div class="l-area-home-text">The rules change. Markets shift, technology disrupts, and what worked last year stops working. What I've learned is that a north star is the most valuable thing a leader can provide when the ground is moving. I've been at the front of shifts like these, building through them rather than waiting for the path to become clear.</div>
+    </div>
+
+    <div class="l-area-home">
+      <div class="l-area-home-label">Finding <em>Signal.</em></div>
+      <div class="l-area-home-text">The most consequential design problems are rarely the loudest ones. I've built a career on finding the signal in complex environments, identifying what actually matters before it becomes critical, and building the organizational case to address it before the window closes.</div>
+    </div>
+
+    <div class="l-area-home">
+      <div class="l-area-home-label">Translating Data into <em>Direction.</em></div>
+      <div class="l-area-home-text">Data and research are only useful if they change what a team does next. I use behavioral data and user research to translate insight into design direction that product, engineering, and business stakeholders can act on.</div>
+    </div>
+
+    <div style="padding: 40px 0; border-top: 1px solid var(--rule);">
+      <a href="work.html" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;text-transform:uppercase;letter-spacing:0.28em;color:#8FB593;text-decoration:none;border-bottom:1px solid rgba(143,181,147,0.3);padding-bottom:4px;transition:border-color 0.2s;">View Selected Work →</a>
+    </div>
+
+  </section>
+
+  <footer id="contact">
+    <div>
+      <h6>Location</h6>
+      <a href="#">Vancouver</a>
+      <a href="#">Remote &amp; Hybrid</a>
+    </div>
+    <div>
+      <h6>Email</h6>
+      <a href="mailto:sunleeux@gmail.com">sunleeux@gmail.com</a>
+    </div>
+    <div>
+      <h6>Elsewhere</h6>
+      <a href="https://linkedin.com/in/sunnyleeux" target="_blank">LinkedIn</a>
+    </div>
+    <div class="colophon">
+      <span>© Sunny Lee, 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-top">
+    <button class="back-btn" onclick="closeOverlay()">
+      <span class="back-arrow">←</span> All work
+    </button>
+    <div class="overlay-nav-right">
+      <span class="counter" id="counter"></span>
+      <div class="arrows">
+        <button class="arr" id="prev" onclick="navOverlay(-1)">←</button>
+        <button class="arr" id="next" onclick="navOverlay(1)">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="overlay-scroll">
+    <div class="overlay-content" id="overlayContent"></div>
+  </div>
+</div>
+
+<script>
+
+  /* THEME */
+
+
+  /* SCROLL REVEAL */
+  const revealTargets = document.querySelectorAll('.work-row, .statement, .l-area-home');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.classList.contains('work-row')
+          ? Array.from(revealTargets).indexOf(entry.target) * 80 : 0;
+        setTimeout(() => entry.target.classList.add('revealed'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealTargets.forEach(el => observer.observe(el));
+
+  /* OVERLAY DATA */
+  const entries = [
+    {
+      kicker: 'Head of Experience Design · Full Circle Studio · 2021–2026',
+      title: 'Experience Design at Full Circle Studio',
+      heroImg: 'skate-ingame.png',
+      context: 'New studio. Fully remote. Two audiences: legacy fans who knew exactly what skate. was, and a new generation being introduced to it for the first time. Building in public with no design system and no established Experience Design practice on the team. skate. launched as a free-to-play live service game for game controller, with mobile and keyboard and mouse to follow. The challenge was designing for two audiences with fundamentally different expectations while the vision of what a social sandbox could be was still taking shape.',
+      myWork: [
+        'Drove the organizational case for prioritizing FTUE by building the evidence, navigating the dependency chain with creative, PM, production, and engineering, and got it shipped',
+        'Drove the direction and integration of the design system across a live service cadence, establishing visual continuity between the game UI and brand marketing by aligning two teams that had been operating independently',
+        'Defined the UGC interaction design strategy, giving players the ability to create and define their own unstructured play experience',
+        'Embedded data into how the team worked: behavioral analytics shaped onboarding strategy, eye-tracking informed HUD decisions',
+        'Built the Experience Design practice from the ground up, growing a cross-discipline team from 3 to 21 designers over five years with intention'
+      ],
+      outcomes: [
+        'D1 retention improved across all player segments release to release: Growth players from 14.1% to 17%, Legacy from 35.5% to 40.4%',
+        'FTUE completion rate lifted from 48% to 61% between test cycles, both above target',
+        'Player experience scores improved over 14% across all audience segments release to release prior to early access',
+        '15 million players completed the initial onboarding funnel during early access',
+        'Team health scores improved significantly: Effective Leadership +14 points, Decision Maker +11 points'
+      ],
+      signal: 'Product confidence comes from moving: experimenting and adjusting toward the signal. None of that works without trust, constructive discourse, and the infrastructure and mindset to do it quickly and consistently.'
+    },
+    {
+      kicker: 'Senior Director of Experience Design · EA Group Mobile Studios · 2019–2021',
+      title: 'EA Group Mobile Studios',
+      heroImg: null,
+      context: 'Experience Design leadership across a Star Wars IP-focused group of mobile studios at EA. Multiple studios, multiple product contexts, no unified Experience Design practice connecting them. The challenge was establishing a shared understanding of who the player was, what they needed, and how that understanding should drive product direction, design systems, and team structure simultaneously.',
+      myWork: [
+        'Drove the mapping of the player journey and lifecycle over time, segmenting audiences by motivation and behavior, a framework subsequently adopted by teams beyond the mobile group including Madden, NHL, and skate.',
+        'Translated that player understanding into a shared design direction: how it expressed through the design system, how it shaped team structure, and how it connected to product priorities',
+        'Established pre-production criteria for Experience Design, defining what the discipline was expected to deliver before a product entered production',
+        'Built the hiring infrastructure for Experience Design across the group: job families, role definitions, evaluation frameworks, and interview criteria adopted beyond the mobile studios by other teams across EA',
+        'Got the right design roles in place to support and execute on the direction across independently operating studios'
+      ],
+      outcomes: [
+        'Built Experience Design teams that didn\'t exist, with senior designers from across EA actively pursuing roles on the team, deployed more effectively with clearer roles and stronger product contribution',
+        'A shared player journey framework adopted across studios, giving product, design, and production a common language for decisions, picked up independently by other EA teams beyond the original mandate',
+        'A more consistent and connected experience design approach across EA\'s Star Wars mobile studios without centralizing control'
+      ],
+      signal: 'Similar problems exist in multiple contexts but that doesn\'t mean applying the same approach. Studio culture, team dynamics, and collaboration styles all shape what will actually land. Influence starts with listening. It\'s not about compromise. It\'s about building shared understanding that gives people the confidence to move forward together.'
+    },
+    {
+      kicker: 'Director of Experience Design · EA Studios · 2018–2019',
+      title: 'Experience Design Operations at EA Studios',
+      heroImg: null,
+      context: 'Before this work, there was no such thing as Experience Design at EA. There were UX designers. There were UI designers. There were Technical designers. Separate job families, separate expectations, no shared language for what the discipline meant or what it was supposed to deliver. Working with the Head of Experience Design and other leaders across EA, drawing on what was emerging in other industries, the work was to define Experience Design as a cornerstone discipline, build the career framework that gave it structure, and roll it out across EA\'s global studios.',
+      myWork: [
+        'Worked with other XD leaders across EA to build the Experience Design Job Family, defining roles, levels, growth paths, and performance criteria across the full career spectrum',
+        'Advocated for a dual-track career path: a management route and a principal individual contributor route, giving Technical, UX, and UI designers clarity on how they could grow',
+        'Led the rollout across EA\'s global studios, presenting and socializing the framework to studios and regional leadership to drive understanding and adoption',
+        'Created the conditions for mentorship, onboarding, and knowledge-sharing across the XD community'
+      ],
+      outcomes: [
+        'Experience Design established as a named, defined discipline at EA, built from something that didn\'t exist before',
+        'A career framework rolled out across EA\'s global studios, the first shared definition of what Experience Design meant at every level',
+        'UX, UI, and Technical Experience Design unified under one discipline with a clear dual-track path for the first time'
+      ],
+      signal: 'Defining a discipline is as much organizational work as it is design work. The framework matters less than the conditions you create for people to genuinely see themselves in it. That requires listening before advocating, and patience with the process of people catching up to a new idea. Creating something doesn\'t make it real. Real requires socialization, visible examples of it in action, and the willingness to treat it as flexible rather than fixed.'
+    },
+    {
+      kicker: 'Creative Director, UI / UX Director · EA Sports · 2007–2012',
+      title: 'EA Sports',
+      heroImg: null,
+      context: 'When I joined EA Sports, the games industry hadn\'t yet developed a shared language for user experience. There were UI teams. There were creative directors. There was no UX function and no established model for what one should look like. Starting as Creative Director of a centralized UI team, I saw the gap and made the case for something different. The reframe that unlocked adoption: UI is the invisible layer. The interface is scaffolding that lets the content do the work. What differentiates FIFA from Madden is not the UI.',
+      myWork: [
+        'Executed and drove adoption of EA Sports\' centralized UI system across FIFA, Madden NFL, NHL, and UFC, aligning franchise leadership across creative, tech, and production around a shared foundation',
+        'Ran a three-day intensive workshop with creative leaders and executive leadership to align on a shared home experience, validated with player research',
+        'Advocated for user research as a practice, introducing player-centered methods and UX thinking to EA Sports'
+      ],
+      outcomes: [
+        'A unified home screen shipped across FIFA and Madden NFL, with NHL fast following, during the Xbox and PlayStation console transition, a direct result of the workshop and shared design patterns that still persist today',
+        'Designers able to work fluidly across franchises on the centralized team, reducing duplication of effort across titles',
+        'Created one of the first UX Director roles at EA Sports, establishing a UX function where none had existed and creating a model others could build on'
+      ],
+      signal: 'Getting creative leaders and executive stakeholders bought in means bringing them along through action, not persuasion. Showing is faster than telling. When people build something together they see the shared value and defend it together.'
+    },
+    {
+      kicker: 'UX Design Leader · Providence Digital Innovation Group · 2015–2018',
+      title: 'Providence Digital Innovation Group',
+      heroImg: null,
+      context: 'Healthcare design operates under conditions most product environments never encounter. Regulatory constraints limit how and when you can test. The users — patients in distress, clinicians under time pressure — cannot be observed in a lab. At Providence\'s Digital Innovation Group, the work spanned stroke symptom triage, telehealth appointment scheduling, and digital health management across hardware, web, and mobile. In stroke care, time is brain. Every second of confusion in the interface is a second lost.',
+      myWork: [
+        'Led the design of the patient intake flow for stroke symptom triage, optimizing for speed and clarity under time-critical conditions',
+        'Conducted practitioner persona workshops to ensure information transfer between patient and clinician was intuitive and seamless, reducing redundancy patients experienced across touchpoints',
+        'Helped formalize patient journey mapping, accessibility reviews, and collaborative prototyping as practices within the Digital Innovation Group',
+        'Partnered with product managers and cross-functional teams, navigating the tension between a bias-to-action product culture and strict regulatory constraints to maintain design rigor',
+        'Advocated for inclusive design thinking across diverse user needs: aging populations, underserved communities, varied cognitive and physical abilities'
+      ],
+      outcomes: [
+        'Patient intake and triage flows designed for clarity and speed in high-stakes clinical environments',
+        'Practitioner-facing experiences that reduced redundant data entry and improved information continuity across the care journey',
+        'UX practices introduced and formalized in an organization navigating the complexity of regulated healthcare technology'
+      ],
+      signal: 'People don\'t need all the bells and whistles. They need simplicity, clarity, and responsiveness — to be treated with dignity as a patient, and to treat effectively as a practitioner. Working in healthcare made that permanent. The design problems change. The principle doesn\'t.'
+    }
+  ];
+
+  let cur = 0;
+
+  function openOverlay(i) {
+    cur = i;
+    renderOverlay();
+    document.getElementById('overlay').classList.add('open');
+    document.querySelector('.overlay-scroll').scrollTop = 0;
+  }
+
+  function closeOverlay() {
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  function navOverlay(d) {
+    cur = Math.max(0, Math.min(entries.length - 1, cur + d));
+    renderOverlay();
+    document.querySelector('.overlay-scroll').scrollTop = 0;
+  }
+
+  function renderOverlay() {
+    const e = entries[cur];
+    document.getElementById('counter').textContent = `${cur + 1} / ${entries.length}`;
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === entries.length - 1;
+    document.getElementById('overlayContent').innerHTML = `
+      <div class="o-kicker">${e.kicker}</div>
+      <div class="o-title">${e.title}</div>
+      <div class="o-signal-wrap">
+        ${e.heroImg ? `<img src="${e.heroImg}" class="o-signal-img" alt="">` : `<div class="o-signal-img-placeholder"></div>`}
+        <div class="o-signal">${e.context}</div>
+      </div>
+      <div class="o-label">My Work</div>
+      <ul class="o-list">${e.myWork.map(a => `<li>${a}</li>`).join('')}</ul>
+      <div class="o-label">Outcomes</div>
+      <ul class="o-list">${e.outcomes.map(o => `<li>${o}</li>`).join('')}</ul>
+      ${e.signal ? `
+      <div class="o-leadership-wrap">
+        <div class="o-leadership-icon">
+          <div class="o-leadership-icon-inner">
+            <img src="lightbulb-icon.png" alt="">
+          </div>
+        </div>
+        <div class="o-leadership">${e.signal}</div>
+      </div>` : ''}
+    `;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('overlay').classList.contains('open')) return;
+    if (e.key === 'Escape') closeOverlay();
+    if (e.key === 'ArrowRight') navOverlay(1);
+    if (e.key === 'ArrowLeft') navOverlay(-1);
+  });
+
+
+  /* PAGE FADE OUT ON NAVIGATE */
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector('.container').style.animation = 'none';
+      document.querySelector('.container').style.opacity = '0';
+      document.querySelector('.container').style.transform = 'translateY(-8px)';
+      document.querySelector('.container').style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      setTimeout(() => { window.location.href = href; }, 300);
+    });
+  });
+
+</script>
+</body>
+</html>

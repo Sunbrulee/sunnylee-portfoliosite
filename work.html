@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunny Lee — Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&display=swap" rel="stylesheet">
+<style>
+
+  /* TOKENS */
+  :root {
+    --sage:        #8FB593;
+    --sage-dim:    rgba(122, 158, 126, 0.22);
+    --sage-line:   rgba(122, 158, 126, 0.55);
+    --ochre:       #C8A84B;
+    --bg:          #2F2F2F;
+    --bg-soft:     #363636;
+    --ink:         #F5F2ED;
+    --rule:        rgba(245, 242, 237, 0.13);
+    --muted:       rgba(245, 242, 237, 0.48);
+    --topo-stroke: #F5F2ED;
+    --toggle-icon: '○';
+  }
+
+  [data-theme="light"] {
+    --bg:          #F0EDE7;
+    --bg-soft:     #E8E4DC;
+    --ink:         #1E1C1A;
+    --rule:        rgba(30, 28, 26, 0.13);
+    --muted:       rgba(30, 28, 26, 0.48);
+    --topo-stroke: #1E1C1A;
+    --toggle-icon: '●';
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.005em;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background 0.5s ease, color 0.5s ease;
+  }
+
+  /* GRAIN */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.038 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    opacity: 0.9;
+  }
+
+  /* TOPO */
+  /* THEME TOGGLE */
+  .theme-toggle {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    z-index: 100;
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    font-family: 'Archivo', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: border-color 0.25s, color 0.25s;
+    border-radius: 2px;
+  }
+  .theme-toggle:hover { border-color: var(--sage); color: var(--sage); }
+
+  /* CONTAINER */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 40px 88px 96px;
+  }
+
+  /* NAV */
+  nav {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding-bottom: 110px;
+  }
+
+  .marque {
+    font-family: 'Archivo', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+  }
+
+  .marque em { font-style: italic; font-weight: 300; color: var(--muted); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 44px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  nav ul a {
+    color: var(--ink);
+    text-decoration: none;
+    opacity: 0.72;
+    position: relative;
+    transition: opacity 0.2s ease;
+  }
+
+  nav ul a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--sage);
+    transition: width 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  nav ul a:hover { opacity: 1; }
+  nav ul a:hover::after { width: 100%; }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 0.85fr;
+    gap: 120px;
+    align-items: end;
+    padding-bottom: 80px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 200;
+    font-size: clamp(68px, 8.5vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+  }
+
+  h1 em { font-style: italic; font-weight: 200; }
+
+  .lede {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.75;
+    letter-spacing: 0.005em;
+    color: var(--muted);
+    max-width: 34ch;
+    padding-bottom: 12px;
+  }
+
+  /* WORK INDEX */
+  .index-head {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 32px 0 28px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .index-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+  }
+
+  .index-meta {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .work { display: flex; flex-direction: column; }
+
+  .work-row {
+    display: grid;
+    grid-template-columns: 56px 1fr 1.4fr 0.6fr 88px;
+    gap: 32px;
+    align-items: baseline;
+    padding: 36px 0;
+    border-top: 1px solid var(--rule);
+    position: relative;
+    cursor: pointer;
+    transition: padding 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .work-row.revealed { opacity: 1; transform: translateY(0); }
+
+  .work-row::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background: var(--sage-dim);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+    border-radius: 2px;
+  }
+
+  .work-row:hover::before { transform: scaleX(1); }
+  .work-row:hover { padding-left: 16px; }
+  .work-row:hover .num { color: var(--sage-line); }
+
+  .num {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  .title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 28px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .ctx { font-size: 15px; color: var(--muted); line-height: 1.55; }
+
+  .role {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .year {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink);
+    text-align: right;
+    padding-right: 5px;
+  }
+
+  /* STATEMENT */
+  .statement {
+    margin: 200px 0 160px;
+    max-width: 720px;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .statement.revealed { opacity: 1; transform: translateY(0); }
+
+  .statement p {
+    font-family: 'Archivo', sans-serif;
+    font-size: 32px;
+    line-height: 1.38;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .statement p em { font-style: italic; font-weight: 300; color: var(--sage); }
+
+  .signature {
+    margin-top: 56px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .signature::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  footer h6 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    padding: 4px 0;
+    position: relative;
+    width: fit-content;
+    transition: color 0.2s ease;
+  }
+
+  footer a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--sage);
+    transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  footer a:hover { color: var(--ink); }
+  footer a:hover::after { width: 100%; }
+
+  .colophon {
+    grid-column: 1 / -1;
+    margin-top: 80px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+  }
+
+  /* OVERLAY */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .overlay.open { opacity: 1; pointer-events: all; }
+
+  .overlay-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 56px;
+    border-bottom: 1px solid var(--rule);
+    flex-shrink: 0;
+  }
+
+  .back-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .back-btn:hover { color: var(--sage); }
+
+  .back-arrow { font-size: 14px; }
+
+  .overlay-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .counter {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  .arrows { display: flex; gap: 8px; }
+
+  .arr {
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--muted);
+    width: 34px; height: 34px;
+    border-radius: 2px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .arr:hover:not(:disabled) { border-color: var(--sage); color: var(--sage); }
+  .arr:disabled { opacity: 0.2; cursor: default; }
+
+  /* SPLIT OVERLAY LAYOUT */
+  .overlay-body {
+    flex: 1;
+    display: flex;
+    overflow-y: auto;
+    min-height: 0;
+  }
+
+  /* LEFT PANEL — image, scrolls with the right column */
+  .overlay-img-panel {
+    width: 42%;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow: hidden;
+    border-right: 1px solid var(--rule);
+    transition: opacity 0.3s ease;
+  }
+
+  .overlay-img-panel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+  }
+
+  /* Scrim so the logo reads on any background */
+  .overlay-img-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.38);
+    pointer-events: none;
+  }
+
+  /* Centered logo mark */
+  .overlay-img-logo {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .overlay-img-logo img {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: min(260px, 60%) !important;
+    max-height: min(180px, 50%) !important;
+    object-fit: contain !important;
+    filter: brightness(0) invert(1);
+    display: block;
+  }
+
+  /* Providence screenshot variant — no scrim, no logo, just image */
+  .overlay-img-panel.screenshot img {
+    object-position: top center;
+  }
+  .overlay-img-panel.screenshot::after { display: none; }
+
+  /* Logo-panel variant — background image + centered contained logo, never cropped */
+  .overlay-img-panel.has-logo::after { display: none; }
+  .o-panel-logo-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+  .o-panel-logo-wrap img {
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 84%;
+    max-height: 70%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* EA Sports collage — 3 cover arts stacked */
+  .overlay-img-panel.collage {
+    display: flex;
+    flex-direction: column;
+  }
+  .overlay-img-panel.collage::after { display: none; }
+  .overlay-img-panel.collage .collage-img {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .overlay-img-panel.collage .collage-img:last-child { border-bottom: none; }
+  .overlay-img-panel.collage .collage-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* RIGHT PANEL — content, flows naturally as body scrolls */
+  .overlay-scroll {
+    flex: 1;
+    overflow-y: visible;
+    padding: 52px 56px 80px;
+    min-width: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* SINGLE COLUMN (no image entries) */
+  .overlay-body.solo .overlay-scroll {
+    padding: 52px 56px 80px;
+  }
+
+  .overlay-content { max-width: 680px; }
+
+  /* Sequenced fade-in blocks */
+  .o-seq {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .o-seq.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .o-kicker {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 1;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .o-kicker::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--ink);
+    opacity: 0.72;
+    flex-shrink: 0;
+  }
+
+  .o-title {
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 200;
+    line-height: 0.93;
+    letter-spacing: -0.03em;
+    margin-bottom: 44px;
+  }
+
+  .o-label {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #8FB593;
+    margin-bottom: 16px;
+    margin-top: 36px;
+  }
+
+  .o-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .o-list li {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #D4D0CA;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+
+  .o-list li::before {
+    content: '●';
+    color: var(--sage);
+    font-size: 7px;
+    flex-shrink: 0;
+    position: relative;
+    top: -1px;
+  }
+
+  /* Context card */
+  .o-signal-wrap {
+    display: block;
+    margin-bottom: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(122, 158, 126, 0.08);
+  }
+
+  .o-signal {
+    margin: 0;
+    padding: 28px 32px;
+    background: transparent;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(17px, 1.9vw, 22px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--sage);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  .o-signal::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1.5px;
+    background: var(--sage);
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  /* Leadership signal card — ochre */
+  .o-leadership-wrap {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    margin-bottom: 100px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: rgba(200, 168, 75, 0.08);
+    align-items: stretch;
+  }
+
+  .o-leadership-icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 0 28px 28px;
+    flex-shrink: 0;
+  }
+
+  .o-leadership-icon-inner {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(200, 168, 75, 0.12);
+    border: 1px solid rgba(200, 168, 75, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .o-leadership-icon-inner img {
+    width: 26px; height: 26px;
+    object-fit: contain;
+    filter: invert(72%) sepia(28%) saturate(600%) hue-rotate(5deg) brightness(95%);
+  }
+
+  .o-leadership {
+    margin: 0;
+    padding: 28px 32px;
+    background: transparent;
+    font-family: 'Archivo', sans-serif;
+    font-size: clamp(17px, 1.9vw, 24px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ochre);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .o-leadership::before { display: none; }
+
+
+  /* PAGE TRANSITION */
+  .container {
+    animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-cue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeInCue 1s 1.2s cubic-bezier(0.22,1,0.36,1) forwards;
+    pointer-events: none;
+  }
+  .scroll-cue.hidden { opacity: 0; transition: opacity 0.4s ease; }
+  @keyframes fadeInCue {
+    from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .scroll-cue-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--sage), transparent);
+    animation: scrollPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+  .scroll-cue-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+  }
+  .hero { position: relative; }
+
+  .skip-link {
+    position: absolute; top: -40px; left: 0;
+    background: #8FB593; color: #2F2F2F;
+    padding: 8px 16px; font-size: 13px; font-weight: 500;
+    z-index: 200; text-decoration: none; transition: top 0.2s;
+  }
+  .skip-link:focus { top: 0; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #8FB593; outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    /* Layout */
+    .container { padding: 20px 20px 80px; }
+
+    /* Nav */
+    nav { padding-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+    nav ul { gap: 20px; font-size: 11px; }
+    nav ul li a { min-height: 44px; display: inline-flex; align-items: center; }
+
+    /* Work index rows — 2 col: number + stacked content */
+    .work-row {
+      grid-template-columns: 32px 1fr;
+      grid-template-rows: auto auto;
+      gap: 8px 12px;
+      padding: 20px 0;
+      align-items: start;
+    }
+    .num { grid-column: 1; grid-row: 1; font-size: 12px; padding-top: 4px; }
+    .title { grid-column: 2; grid-row: 1; font-size: clamp(18px, 5vw, 24px); line-height: 1.1; }
+    /* a11y: minimum 15px for body/context text */
+    .ctx { grid-column: 2; grid-row: 2; font-size: 15px; line-height: 1.6; }
+    .role { grid-column: 2; grid-row: 3; font-size: 12px; margin-top: 4px; }
+    .year { grid-column: 1; grid-row: 2; font-size: 12px; text-align: left; color: var(--muted); }
+
+    /* Overlay nav bar */
+    .overlay-top {
+      padding: 14px 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .back-btn { font-size: 11px; min-height: 44px; }
+    .arr { width: 44px; height: 44px; font-size: 18px; }
+    .counter { font-size: 13px; }
+
+    /* Split overlay — on mobile, body scrolls vertically, image stacks on top */
+    .overlay-body { flex-direction: column; overflow-y: auto; }
+
+    .overlay-img-panel {
+      position: relative;
+      width: 100%;
+      height: 56vw;
+      min-height: 220px;
+      flex-shrink: 0;
+      border-right: none;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    /* Collage: on mobile stack as 3 equal-height rows */
+    .overlay-img-panel.collage {
+      height: auto;
+      min-height: unset;
+    }
+    .overlay-img-panel.collage .collage-img {
+      height: 36vw;
+      min-height: 120px;
+    }
+
+    /* Logo panel: full width, fixed height, logo always visible */
+    .overlay-img-panel.has-logo {
+      height: 56vw;
+      min-height: 200px;
+    }
+    .o-panel-logo-wrap {
+      padding: 24px;
+    }
+    .o-panel-logo-wrap img {
+      max-width: 82%;
+      max-height: 82%;
+    }
+
+    /* Logo: centered with generous buffer in all directions */
+    .overlay-img-logo { padding: 32px; }
+    .overlay-img-logo svg { width: min(200px, 55%) !important; height: auto; }
+
+    /* Overlay scroll area */
+    .overlay-scroll { padding: 28px 20px 80px; }
+    .overlay-content { max-width: 100%; }
+
+    /* a11y: overlay typography — 15px floor for all reading text */
+    .o-kicker { font-size: 11px; letter-spacing: 0.18em; }
+    .o-title { font-size: clamp(28px, 8vw, 42px); margin-bottom: 20px; }
+    .o-label { font-size: 11px; margin-top: 24px; margin-bottom: 10px; letter-spacing: 0.22em; }
+    /* Bullets stay inline — just set size floor */
+    .o-list li { font-size: 15px; gap: 10px; }
+    .o-list li::before { font-size: 7px; }
+
+    /* Signal/context card */
+    .o-signal-wrap { margin-bottom: 24px; }
+    .o-signal { font-size: 15px; padding: 20px 22px; }
+    .o-signal::before { margin-bottom: 12px; }
+
+    /* Leadership signal */
+    .o-leadership { font-size: 15px; padding: 20px 22px; }
+    .o-leadership::before { margin-bottom: 12px; }
+
+    /* Footer */
+    footer { grid-template-columns: 1fr; gap: 16px; padding: 24px 0 40px; }
+    footer h6 { font-size: 12px; }
+    footer a { font-size: 14px; padding: 6px 0; }
+    .colophon { flex-direction: column; gap: 8px; font-size: 12px; }
+    .theme-toggle { bottom: 16px; right: 16px; font-size: 11px; }
+
+    /* Hero section */
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-bottom: 48px; }
+    h1 { font-size: clamp(48px, 12vw, 80px); }
+    .lede { font-size: 16px; max-width: 100%; }
+    .eyebrow { font-size: 11px; margin-bottom: 32px; }
+
+    /* Statement section */
+    .statement { margin: 80px 0 60px; }
+    .statement p { font-size: 22px; line-height: 1.4; }
+    .signature { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+
+
+<div class="container">
+
+  <nav>
+    <a href="index.html" style="text-decoration:none;color:inherit;"><div class="marque">Sunny Lee</div></a>
+    <ul>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="leadership.html">Approach</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+<section id="work">
+    <div class="index-head">
+      <div class="index-label">Selected Work</div>
+      
+    </div>
+
+    <div class="work">
+
+      <div class="work-row" onclick="openOverlay(0)">
+        <div class="num">01.</div>
+        <div class="title">Full Circle — skate.</div>
+        <div class="ctx">End-to-end Experience Design leadership for a free-to-play live service game with 15 million players through the onboarding funnel and measurable retention lift across all audience segments.</div>
+        <div class="role">Head of Experience Design</div>
+        <div class="year">2021–2026</div>
+      </div>
+
+      <div class="work-row" onclick="openOverlay(1)">
+        <div class="num">02.</div>
+        <div class="title">EA Group Mobile Studios</div>
+        <div class="ctx">Experience Design leadership across EA's Star Wars mobile studios: player journey frameworks, pre-production XD criteria, and talent hiring infrastructure.</div>
+        <div class="role">Sr. Director, Experience Design</div>
+        <div class="year">2019–2021</div>
+      </div>
+
+      <div class="work-row" onclick="openOverlay(2)">
+        <div class="num">03.</div>
+        <div class="title">Experience Design Operations</div>
+        <div class="ctx">Co-led the creation of Experience Design career framework, dual-track career path, and global rollout across EA's studios, establishing a new discipline and subdomains at EA.</div>
+        <div class="role">Director, Experience Design</div>
+        <div class="year">2018–2019</div>
+      </div>
+
+      <div class="work-row" onclick="openOverlay(3)">
+        <div class="num">04.</div>
+        <div class="title">EA Sports</div>
+        <div class="ctx">Drove adoption of a shared UI system across FIFA, Madden NFL, NHL, and UFC and created one of the first UX Director roles at EA Sports, establishing player-centred methods.</div>
+        <div class="role">Creative Director / UX Director</div>
+        <div class="year">2007–2012</div>
+      </div>
+
+      <div class="work-row" onclick="openOverlay(4)">
+        <div class="num">05.</div>
+        <div class="title">Providence Digital Innovation</div>
+        <div class="ctx">UX leadership across clinical healthcare experiences, from stroke triage to telehealth and related patient-facing care tools.</div>
+        <div class="role">UX Design Leader</div>
+        <div class="year">2015–2018</div>
+      </div>
+
+    </div>
+
+    <div style="padding: 40px 0 48px; border-top: 1px solid var(--rule);">
+      <a href="leadership.html" style="display:inline-flex;align-items:center;gap:10px;font-size:11px;text-transform:uppercase;letter-spacing:0.28em;color:#8FB593;text-decoration:none;border-bottom:1px solid rgba(143,181,147,0.3);padding-bottom:4px;transition:border-color 0.2s;">View My Approach →</a>
+    </div>
+
+  </section>
+
+<footer id="contact">
+    <div>
+      <h6>Location</h6>
+      <a href="#">Vancouver</a>
+      <a href="#">Remote &amp; Hybrid</a>
+    </div>
+    <div>
+      <h6>Email</h6>
+      <a href="mailto:sunleeux@gmail.com">sunleeux@gmail.com</a>
+    </div>
+    <div>
+      <h6>Elsewhere</h6>
+      <a href="https://linkedin.com/in/sunnyleeux" target="_blank">LinkedIn</a>
+    </div>
+    <div class="colophon">
+      <span>© Sunny Lee, 2026</span>
+    </div>
+  </footer>
+
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-top">
+    <button class="back-btn" onclick="closeOverlay()">
+      <span class="back-arrow">←</span> All work
+    </button>
+    <div class="overlay-nav-right">
+      <span class="counter" id="counter"></span>
+      <div class="arrows">
+        <button class="arr" id="prev" onclick="navOverlay(-1)">←</button>
+        <button class="arr" id="next" onclick="navOverlay(1)">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="overlay-body" id="overlayBody">
+    <!-- image panel injected here by JS when heroImg exists -->
+    <div class="overlay-scroll">
+      <div class="overlay-content" id="overlayContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+
+
+
+  /* OVERLAY DATA */
+  const workEntries = [
+    {
+      kicker: 'Head of Experience Design · Full Circle Studio · 2021–2026',
+      title: 'Experience Design at Full Circle Studio',
+      heroImg: 'skate.png',
+      heroLogo: null,
+      heroWordmark: true,
+      context: 'New studio. Fully remote. Two audiences: legacy fans who knew exactly what skate. was, and a new generation discovering it for the first time. skate. launched in early access as a free-to-play live service game on console and PC (game controller), with mobile intended to fast follow. The challenge was designing for very different audiences and skill floors, while also helping shape the experience as the vision for what a social sandbox game could become was still evolving.',
+      myWork: [
+        'Drove the organizational case for prioritizing the First Time User Experience (FTUE), building the evidence and aligning creative, product management, production, and engineering around a shared direction. Led the UX strategy for onboarding and helped drive the initiative through to launch.',
+        'Defined the interaction design strategy for User Generated Content (UGC) Tools, enabling players to create, share, and shape their own unstructured play experiences.',
+        'Embedded data into the design process, using behavioral analytics to inform onboarding strategy and eye-tracking research to guide design iterations and information hierarchy decisions.'
+      ],
+      outcomes: [
+        'More than 15 million players completed the initial onboarding funnel during early access.',
+        'Day 1 retention improved release over release across all player segments, including Growth players from 14.1% to 17% and Legacy players from 35.5% to 40.4%.',
+        'FTUE completion rates increased from 48% to 61% between test cycles, exceeding target benchmarks.',
+        'Player experience scores improved by more than 14% across audience segments in the lead-up to early access launch.'
+      ],
+      signal: 'Product confidence comes from moving: experimenting and adjusting toward the signal. None of that works without trust, constructive discourse, and the infrastructure and mindset to do it quickly and consistently.'
+    },
+    {
+      kicker: 'Senior Director of Experience Design · EA Group Mobile Studios · 2019–2021',
+      title: 'EA Group Mobile Studios',
+      heroImg: 'Mobile1.png',
+      imgPosition: 'left center',
+      context: 'Experience Design leadership across a group of EA mobile studios focused on Star Wars IP. Multiple studios, multiple product contexts, and no unified Experience Design practice connecting them. The challenge was not just design consistency across teams. There was no shared language around player experience, no clear pre-production criteria for what Experience Design should deliver, and no infrastructure connecting practitioners across separate studios.',
+      myWork: [
+        'Drove the mapping of the player journey and lifecycle over time, segmenting audiences by motivations and behaviors, a framework later adopted beyond the mobile group by teams including Madden, NHL, and skate.',
+        'Translated that player understanding into a shared design direction, defining how player needs should be expressed through the design system and connected back to product priorities.',
+        'Established pre-production criteria for Experience Design, clarifying what the discipline and its subdomains were expected to deliver before products moved into production.',
+      ],
+      outcomes: [
+        'Built Experience Design teams that didn\'t exist, with senior designers from across EA actively pursuing roles on the team, deployed more effectively with clearer roles and stronger product contribution',
+        'A shared player journey framework adopted across studios, giving product, design, and production a common language for decisions, picked up independently by other EA teams beyond the original mandate',
+        'A more consistent and connected experience design approach across EA\'s Star Wars mobile studios without centralizing control'
+      ],
+      signal: 'Similar problems show up across teams, but the same approach rarely works everywhere. Studio culture, team dynamics, and collaboration styles shape what will actually land. Influence starts with listening. The goal isn\'t compromise. It\'s building shared understanding that gives people confidence to move forward together.'
+    },
+    {
+      kicker: 'Director of Experience Design · EA Studios · 2018–2019',
+      title: 'Experience Design Operations at EA Studios',
+      heroImg: 'EA_PANEL',
+      heroPanelBg: '#FFFFFF',
+      heroLogo: 'EA_transparent.png',
+      context: 'Before this work, Experience Design didn\'t formally exist at EA. UX, UI, and Technical Design operated in separate job families with no shared definition of the discipline or its expectations. Working with EA\'s Head of Experience Design and leaders across the company, the goal was to establish Experience Design as a foundational discipline and create the career framework needed to scale it across EA\'s global studios. That included defining expectations at every level, building dual-track paths for management and principal IC growth, and driving adoption across the organization.',
+      myWork: [
+        'Worked with other XD leaders across EA to build the Experience Design Job Family, defining roles, levels, growth paths, and performance criteria across the full career spectrum',
+        'Advocated for a dual-track career path: a management route and a principal individual contributor route, giving Technical, UX, and UI designers clarity on how they could grow',
+        'Led the rollout across EA\'s global studios, presenting and socializing the framework to studios and regional leadership to drive understanding and adoption',
+      ],
+      outcomes: [
+        'Experience Design established as a named, defined discipline at EA, built from something that didn\'t exist before',
+        'A career framework rolled out across EA\'s global studios, the first shared definition of what Experience Design meant at every level',
+        'UX, UI, and Technical Experience Design unified under one discipline with a clear dual-track path for the first time'
+      ],
+      signal: 'Defining a discipline is as much organizational work as it is design work. The framework matters less than the conditions you create for people to see themselves in it. That requires listening before advocating, patience for people to catch up to a new idea, and the flexibility to let the framework evolve across different teams and product contexts. Creating something doesn\'t make it real. Adoption comes through socialization, visible examples, and a shared language people can actually use.'
+    },
+    {
+      kicker: 'Creative Director, UI / UX Director · EA Sports · 2007–2012',
+      title: 'EA Sports',
+      heroImg: 'EASPORTS_collage',
+      heroImgs: ['FIFA13.png', 'nhl-13-playstation-3-art-banner.jpg', 'Madden13.png'],
+      context: 'When I joined EA Sports, the games industry was still early in defining user experience in game development. I led adoption of a shared UI system across FIFA, Madden NFL, NHL, and UFC, aligning franchises with different identities, tech stacks, and resistance to standardization by positioning UI as a shared foundation rather than a creative constraint. The work became an early precursor to a broader shift toward player-centered design at EA Sports. As one of the first UX Directors in the organization, I went on to lead the first centralized UX group, partnering with creative, product, and technology leadership to unify and ship the Home experience vision across the next generation of consoles.',
+      myWork: [
+        'Executed and drove adoption of EA Sports\' centralized UI system across FIFA, Madden NFL, NHL, and UFC, aligning franchise leadership across creative, tech, and production around a shared foundation',
+        'Ran a three-day intensive workshop with creative leaders and executive leadership to align on a shared home experience, validated with player research',
+        'Advocated for user research as a practice, introducing player-centered methods and UX thinking to EA Sports'
+      ],
+      outcomes: [
+        'A unified home shipped across FIFA and Madden NFL, with NHL fast following, during the next generation console transition, a direct result of the workshop and shared design patterns.',
+        'Designers able to work fluidly across franchises on the centralized team, reducing duplication of effort across titles.',
+        'Established one of the first UX Director roles at EA Sports, creating a UX function where none had existed and a model others could build on.'
+      ],
+      signal: 'Getting alignment across the people responsible for direction, integration, and delivery is less about persuasion and more about shared ownership. Showing is faster than telling. When teams help shape the solution together, momentum and buy-in tend to follow naturally.'
+    },
+    {
+      kicker: 'UX Design Leader · Providence Digital Innovation Group · 2015–2018',
+      title: 'Providence Digital Innovation Group',
+      heroImg: 'ProvidenceCrop.png',
+      context: 'Designing for high-stakes, highly regulated health experiences operates under constraints most product environments never encounter. At Providence Digital Innovation Group, the work spanned stroke symptom triage, telehealth scheduling, and digital health experiences across hardware, web, and mobile. In stroke care, "Time is brain." That reality sharpened the focus around simplicity, clarity, and responsiveness in moments where patients and clinicians needed the exchange of information to happen immediately and without friction. Working alongside product management, engineering, and clinical teams, I helped design experiences for both patients navigating confusing systems and clinicians operating under pressure.',
+      myWork: [
+        'Partnered with user researchers on clinician and patient research, persona development, and usability testing to improve information transfer between patients and care teams while reducing redundant steps across touchpoints.',
+        'Helped introduce patient journey mapping, accessibility reviews, and collaborative prototyping into the Digital Innovation Group design process.',
+        'Partnered with product managers and cross-functional teams to balance a bias-to-action product culture with the rigor required in highly regulated healthcare environments.'
+      ],
+      outcomes: [
+        'Faster and more intuitive patient intake and stroke triage experiences in clinical environments.',
+        'Reduced redundant data entry and improved continuity of information across the patient care journey.',
+        'Greater adoption of usability, accessibility, and patient-centered design practices within a highly regulated healthcare technology environment.'
+      ],
+      signal: 'In healthcare, good design is measured by clarity, responsiveness, and consistency under pressure. Patients and clinicians don\'t have time to navigate confusing systems or inconsistent interactions. The work reinforced the importance of building technology that feels intuitive, dependable, and seamless across touchpoints, while helping teams balance speed, regulatory constraints, and real-world usability.'
+    }
+  ];
+
+  let cur = 0;
+  let overlayBusy = false;
+  const SEQ_DELAYS = [0, 180, 340, 500];
+
+  function runSequence() {
+    SEQ_DELAYS.forEach((delay, i) => {
+      setTimeout(() => {
+        const el = document.getElementById('oSeq' + i);
+        if (el) el.classList.add('in');
+      }, delay);
+    });
+  }
+
+  function openOverlay(i) {
+    cur = i;
+    renderOverlay();
+    document.getElementById('overlay').classList.add('open');
+    document.getElementById('overlayBody').scrollTop = 0;
+    setTimeout(runSequence, 80);
+  }
+
+  function closeOverlay() {
+    document.getElementById('overlay').classList.remove('open');
+    overlayBusy = false;
+  }
+
+  function navOverlay(d) {
+    if (overlayBusy) return;
+    overlayBusy = true;
+    const body = document.getElementById('overlayBody');
+    const panel = body.querySelector('.overlay-img-panel');
+    const scroll = body.querySelector('.overlay-scroll');
+
+    // Fade out seq blocks + image panel
+    ['oSeq0','oSeq1','oSeq2','oSeq3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('in');
+    });
+    if (panel) panel.style.opacity = '0';
+    if (scroll) scroll.style.opacity = '0';
+
+    setTimeout(() => {
+      cur = Math.max(0, Math.min(workEntries.length - 1, cur + d));
+      renderOverlay();
+      body.scrollTop = 0;
+      const newPanel = body.querySelector('.overlay-img-panel');
+      const newScroll = body.querySelector('.overlay-scroll');
+      if (newPanel) { newPanel.style.opacity = '0'; newPanel.style.transition = 'opacity 0.3s ease'; }
+      if (newScroll) { newScroll.style.opacity = '0'; newScroll.style.transition = 'opacity 0.3s ease'; }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (newPanel) newPanel.style.opacity = '1';
+          if (newScroll) newScroll.style.opacity = '1';
+          setTimeout(() => {
+            runSequence();
+            overlayBusy = false;
+          }, 60);
+        });
+      });
+    }, 260);
+  }
+
+  function renderOverlay() {
+    const e = workEntries[cur];
+    document.getElementById('counter').textContent = `${cur + 1} / ${workEntries.length}`;
+    document.getElementById('prev').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === workEntries.length - 1;
+
+    const body = document.getElementById('overlayBody');
+
+    // Remove existing image panel if present
+    const existingPanel = body.querySelector('.overlay-img-panel');
+    if (existingPanel) existingPanel.remove();
+
+    if (e.heroImg) {
+      const panel = document.createElement('div');
+      const isCollage = !!e.heroImgs;
+
+      if (isCollage) {
+        panel.className = 'overlay-img-panel collage';
+        e.heroImgs.forEach(src => {
+          const slot = document.createElement('div');
+          slot.className = 'collage-img';
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = '';
+          slot.appendChild(img);
+          panel.appendChild(slot);
+        });
+      } else if (e.heroPanelBg) {
+        // Solid color panel with centered logo — no background image
+        panel.className = 'overlay-img-panel has-logo';
+        panel.style.background = e.heroPanelBg;
+        if (e.heroLogo) {
+          const logoWrap = document.createElement('div');
+          logoWrap.className = 'o-panel-logo-wrap';
+          const logoImg = document.createElement('img');
+          logoImg.src = e.heroLogo;
+          logoImg.alt = '';
+          logoWrap.appendChild(logoImg);
+          panel.appendChild(logoWrap);
+        }
+      } else {
+        const isScreenshot = !e.heroImg.includes('skate') && !e.heroLogo;
+        panel.className = 'overlay-img-panel' + (isScreenshot ? ' screenshot' : '') + (e.heroLogo ? ' has-logo' : '');
+        const img = document.createElement('img');
+        img.src = e.heroImg;
+        img.alt = '';
+        if (e.imgPosition) img.style.objectPosition = e.imgPosition;
+        panel.appendChild(img);
+
+        // Centered contained logo over background image
+        if (e.heroLogo) {
+          const logoWrap = document.createElement('div');
+          logoWrap.className = 'o-panel-logo-wrap';
+          const logoImg = document.createElement('img');
+          logoImg.src = e.heroLogo;
+          logoImg.alt = '';
+          logoWrap.appendChild(logoImg);
+          panel.appendChild(logoWrap);
+        }
+      }
+
+      body.classList.remove('solo');
+      body.insertBefore(panel, body.querySelector('.overlay-scroll'));
+    } else {
+      body.classList.add('solo');
+    }
+
+    document.getElementById('overlayContent').innerHTML = `
+      <div class="o-kicker">${e.kicker}</div>
+      <div class="o-title">${e.title}</div>
+      <div class="o-seq" id="oSeq0">
+        <div class="o-signal-wrap" style="${e.heroImg ? 'background:rgba(122,158,126,0.08);border-radius:6px;margin-bottom:40px;' : ''}">
+          <div class="o-signal">${e.context}</div>
+        </div>
+      </div>
+      <div class="o-seq" id="oSeq1">
+        <div class="o-label">My Work</div>
+        <ul class="o-list">${e.myWork.map(a => `<li>${a}</li>`).join('')}</ul>
+      </div>
+      <div class="o-seq" id="oSeq2">
+        <div class="o-label">Outcomes</div>
+        <ul class="o-list">${e.outcomes.map(o => `<li>${o}</li>`).join('')}</ul>
+      </div>
+      ${e.signal ? `
+      <div class="o-seq" id="oSeq3">
+        <div class="o-leadership-wrap">
+          <div class="o-leadership">
+            <span style="display:block;width:24px;height:1.5px;background:#C8A84B;opacity:0.6;margin-bottom:16px;"></span>
+            ${e.signal}
+          </div>
+        </div>
+      </div>` : ''}
+    `;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('overlay').classList.contains('open')) return;
+    if (e.key === 'Escape') closeOverlay();
+    if (e.key === 'ArrowRight') navOverlay(1);
+    if (e.key === 'ArrowLeft') navOverlay(-1);
+  });
+
+
+  /* PAGE FADE OUT ON NAVIGATE */
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector('.container').style.animation = 'none';
+      document.querySelector('.container').style.opacity = '0';
+      document.querySelector('.container').style.transform = 'translateY(-8px)';
+      document.querySelector('.container').style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      setTimeout(() => { window.location.href = href; }, 300);
+    });
+  });
+
+
+  /* Hide scroll cue on scroll */
+  const cue = document.getElementById('scrollCue');
+  if (cue) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) cue.classList.add('hidden');
+      else cue.classList.remove('hidden');
+    }, { passive: true });
+  }
+
+</script>
+</body>
+</html>
