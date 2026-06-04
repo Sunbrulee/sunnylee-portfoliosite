@@ -375,47 +375,6 @@
     color: var(--muted);
   }
 
-  /* OVERLAY BACKGROUND COLOUR PER ENTRY */
-  .overlay { transition: background 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s ease; }
-
-  .overlay.entry-dark { color: #F5F2ED; }
-  .overlay.entry-dark .o-kicker { color: rgba(245,242,237,0.7); }
-  .overlay.entry-dark .o-title { color: #F5F2ED; }
-  .overlay.entry-dark .o-label { color: #A8D4AC; }
-  .overlay.entry-dark .o-list li { color: rgba(245,242,237,0.82); }
-  .overlay.entry-dark .o-list li::before { color: #A8D4AC; }
-  .overlay.entry-dark .o-signal { color: #A8D4AC; }
-  .overlay.entry-dark .o-signal-wrap { background: rgba(168,212,172,0.1); }
-  .overlay.entry-dark .o-signal::before { background: #A8D4AC; }
-  .overlay.entry-dark .o-leadership { color: #E8C96A; }
-  .overlay.entry-dark .o-leadership-wrap { background: rgba(232,201,106,0.1); }
-  .overlay.entry-dark .overlay-top { border-bottom-color: rgba(245,242,237,0.15); }
-  .overlay.entry-dark .back-btn { color: rgba(245,242,237,0.6); }
-  .overlay.entry-dark .back-btn:hover { color: #A8D4AC; }
-  .overlay.entry-dark .arr { border-color: rgba(245,242,237,0.22); color: rgba(245,242,237,0.6); }
-  .overlay.entry-dark .arr:hover:not(:disabled) { border-color: #A8D4AC; color: #A8D4AC; }
-  .overlay.entry-dark .counter { color: rgba(245,242,237,0.5); }
-  .overlay.entry-dark .overlay-img-panel { border-right-color: rgba(245,242,237,0.15); }
-
-  .overlay.entry-light { color: #1E1C1A; }
-  .overlay.entry-light .o-kicker { color: rgba(30,28,26,0.62); }
-  .overlay.entry-light .o-title { color: #1E1C1A; }
-  .overlay.entry-light .o-label { color: #3A6B3E; }
-  .overlay.entry-light .o-list li { color: rgba(30,28,26,0.78); }
-  .overlay.entry-light .o-list li::before { color: #3A6B3E; }
-  .overlay.entry-light .o-signal { color: #3A6B3E; }
-  .overlay.entry-light .o-signal-wrap { background: rgba(58,107,62,0.25); }
-  .overlay.entry-light .o-signal::before { background: #3A6B3E; }
-  .overlay.entry-light .o-leadership { color: #7A5500; }
-  .overlay.entry-light .o-leadership-wrap { background: rgba(122,85,0,0.25); }
-  .overlay.entry-light .overlay-top { border-bottom-color: rgba(30,28,26,0.15); }
-  .overlay.entry-light .back-btn { color: rgba(30,28,26,0.52); }
-  .overlay.entry-light .back-btn:hover { color: #3A6B3E; }
-  .overlay.entry-light .arr { border-color: rgba(30,28,26,0.2); color: rgba(30,28,26,0.52); }
-  .overlay.entry-light .arr:hover:not(:disabled) { border-color: #3A6B3E; color: #3A6B3E; }
-  .overlay.entry-light .counter { color: rgba(30,28,26,0.5); }
-  .overlay.entry-light .overlay-img-panel { border-right-color: rgba(30,28,26,0.15); }
-
   /* OVERLAY */
   .overlay {
     position: fixed;
@@ -659,13 +618,6 @@
     line-height: 0.93;
     letter-spacing: -0.03em;
     margin-bottom: 44px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1) 0.3s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.3s;
-  }
-  .o-title.in {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .o-label {
@@ -1091,7 +1043,6 @@
   const workEntries = [
     {
       kicker: 'Head of Experience Design · Full Circle Studio · 2021–2026',
-      overlayBg: '#25756E', overlayText: 'dark',
       title: 'Experience Design at Full Circle Studio',
       heroImg: 'skate.webp',
       imgPosition: 'center top',
@@ -1112,7 +1063,6 @@
     },
     {
       kicker: 'Senior Director of Experience Design · EA Group Mobile Studios · 2019–2021',
-      overlayBg: '#1E1E1E', overlayText: 'dark',
       title: 'EA Group Mobile Studios',
       heroImg: 'Mobile1.webp',
       imgPosition: 'left center',
@@ -1131,7 +1081,6 @@
     },
     {
       kicker: 'Director of Experience Design · EA Studios · 2018–2019',
-      overlayBg: '#F5F0E8', overlayText: 'light',
       title: 'Experience Design Operations at EA Studios',
       heroImg: 'EA_PANEL',
       heroPanelBg: '#FFFFFF',
@@ -1151,7 +1100,6 @@
     },
     {
       kicker: 'Creative Director and UX Director · EA Sports · 2007–2012',
-      overlayBg: '#1E4F7F', overlayText: 'dark',
       title: 'EA Sports',
       heroImg: 'EASPORTS_collage',
       heroImgs: ['FIFA13.webp', 'nhl-13-playstation-3-art-banner.jpg', 'Madden13.webp'],
@@ -1170,7 +1118,6 @@
     },
     {
       kicker: 'UX Design Leader · Providence Digital Innovation Group · 2015–2018',
-      overlayBg: '#FFFFFF', overlayText: 'light',
       title: 'Providence Digital Innovation Group',
       heroImg: 'ProvidenceCrop.png',
       context: 'Designing for high-stakes, highly regulated health experiences operates under constraints most product environments never encounter. At Providence Digital Innovation Group, the work spanned stroke symptom triage, telehealth scheduling, and digital health experiences across hardware, web, and mobile. In stroke care, "Time is brain." That reality sharpened the focus around simplicity, clarity, and responsiveness in moments where patients and clinicians needed the exchange of information to happen immediately and without friction. Working alongside product management, engineering, and clinical teams, I helped design experiences for both patients navigating confusing systems and clinicians operating under pressure.',
@@ -1190,11 +1137,9 @@
 
   let cur = 0;
   let overlayBusy = false;
-  const SEQ_DELAYS = [500, 680, 840, 1000];
+  const SEQ_DELAYS = [0, 180, 340, 500];
 
   function runSequence() {
-    const title = document.querySelector('.o-title');
-    if (title) title.classList.add('in');
     SEQ_DELAYS.forEach((delay, i) => {
       setTimeout(() => {
         const el = document.getElementById('oSeq' + i);
@@ -1203,31 +1148,16 @@
     });
   }
 
-  function applyOverlayColour(entry) {
-    const ov = document.getElementById('overlay');
-    ov.style.background = entry.overlayBg || '';
-    ov.classList.remove('entry-dark', 'entry-light');
-    if (entry.overlayBg) {
-      ov.classList.add(entry.overlayText === 'light' ? 'entry-light' : 'entry-dark');
-    }
-  }
-
   function openOverlay(i) {
     cur = i;
     renderOverlay();
-    applyOverlayColour(workEntries[i]);
     document.getElementById('overlay').classList.add('open');
     document.getElementById('overlayBody').scrollTop = 0;
     setTimeout(runSequence, 80);
   }
 
   function closeOverlay() {
-    const ov = document.getElementById('overlay');
-    ov.classList.remove('open');
-    setTimeout(() => {
-      ov.style.background = '';
-      ov.classList.remove('entry-dark', 'entry-light');
-    }, 400);
+    document.getElementById('overlay').classList.remove('open');
     overlayBusy = false;
   }
 
@@ -1238,19 +1168,17 @@
     const panel = body.querySelector('.overlay-img-panel');
     const scroll = body.querySelector('.overlay-scroll');
 
+    // Fade out seq blocks + image panel
     ['oSeq0','oSeq1','oSeq2','oSeq3'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.remove('in');
     });
-    const title = document.querySelector('.o-title');
-    if (title) title.classList.remove('in');
     if (panel) panel.style.opacity = '0';
     if (scroll) scroll.style.opacity = '0';
 
     setTimeout(() => {
       cur = Math.max(0, Math.min(workEntries.length - 1, cur + d));
       renderOverlay();
-      applyOverlayColour(workEntries[cur]);
       body.scrollTop = 0;
       const newPanel = body.querySelector('.overlay-img-panel');
       const newScroll = body.querySelector('.overlay-scroll');

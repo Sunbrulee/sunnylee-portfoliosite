@@ -297,17 +297,7 @@
     color: var(--muted);
   }
 
-  /* QUADRANT VIZ GRID */
-  .quad-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3px;
-    background: rgba(245,242,237,0.13);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 40px;
-    margin-bottom: 52px;
-  }
+  /* PAGE TRANSITION */
   .container {
     animation: fadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
@@ -357,7 +347,6 @@
     .colophon { flex-direction: column; gap: 8px; }
   }
 </style>
-<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -379,65 +368,12 @@
 
     <p class="l-intro">Across product and design leadership, one pattern has stayed constant: the hardest part of the work is never the design itself. It's building the conditions for design to deliver value.</p>
 
-    <div style="margin-top:0;margin-bottom:0;">
-      <div class="quad-grid">
-        <div style="padding:1.5rem;background:var(--bg-soft);display:flex;flex-direction:column;gap:10px;">
-          <i class="ti ti-layout-grid" style="font-size:26px;color:#8FB593;margin-bottom:4px;" aria-hidden="true"></i>
-          <div style="font-size:15px;font-weight:500;color:var(--ink);line-height:1.3;">Frameworks &amp; foundations</div>
-          <div style="font-size:14px;color:var(--ink);opacity:0.72;line-height:1.6;">The blueprint for consistency, efficiency, and clarity across teams and products.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#8FB593;color:#1A3D1C;">Design systems</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#8FB593;color:#1A3D1C;">Feature frameworks</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#8FB593;color:#1A3D1C;">Standards</span>
-          </div>
-        </div>
-        <div style="padding:1.5rem;background:var(--bg-soft);display:flex;flex-direction:column;gap:10px;">
-          <i class="ti ti-users" style="font-size:26px;color:#C8A84B;margin-bottom:4px;" aria-hidden="true"></i>
-          <div style="font-size:15px;font-weight:500;color:var(--ink);line-height:1.3;">Team culture &amp; growth</div>
-          <div style="font-size:14px;color:var(--ink);opacity:0.72;line-height:1.6;">Shared values, ways of working, and clear paths for people to develop and progress.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#C8A84B;color:#2A1E00;">Values</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#C8A84B;color:#2A1E00;">Career matrix</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#C8A84B;color:#2A1E00;">Psychological safety</span>
-          </div>
-        </div>
-        <div style="padding:1.5rem;background:var(--bg-soft);display:flex;flex-direction:column;gap:10px;">
-          <i class="ti ti-chart-dots" style="font-size:26px;color:#5DCAA5;margin-bottom:4px;" aria-hidden="true"></i>
-          <div style="font-size:15px;font-weight:500;color:var(--ink);line-height:1.3;">Data translation</div>
-          <div style="font-size:14px;color:var(--ink);opacity:0.72;line-height:1.6;">Connecting problem identification to solution measurement through evidence and behavioural insight.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#25756E;color:#E1F5EE;">Behavioural analytics</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#25756E;color:#E1F5EE;">User research</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#25756E;color:#E1F5EE;">A/B testing</span>
-          </div>
-        </div>
-        <div style="padding:1.5rem;background:var(--bg-soft);display:flex;flex-direction:column;gap:10px;">
-          <i class="ti ti-arrow-guide" style="font-size:26px;color:#7EB8E8;margin-bottom:4px;" aria-hidden="true"></i>
-          <div style="font-size:15px;font-weight:500;color:var(--ink);line-height:1.3;">Business impact</div>
-          <div style="font-size:14px;color:var(--ink);opacity:0.72;line-height:1.6;">Balancing what customers want with what they need, translated into outcomes that matter to the business.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#1E4F7F;color:#E6F1FB;">Retention</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#1E4F7F;color:#E6F1FB;">Cross-functional alignment</span>
-            <span style="font-size:12px;font-weight:500;padding:4px 12px;border-radius:20px;background:#1E4F7F;color:#E6F1FB;">Strategic direction</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <p class="l-arc">I've spent my career at the front of transformation. From UI systems before UX was part of the vocabulary in games, to building Experience Design as an established discipline at EA, to leading through the shift from a paid box product to a free to play live service social sandbox, and now into AI-augmented design. Each of these inflection points required the same thing: clarity of direction when the ground is moving, and the organizational influence to bring people along without losing what makes the work good.</p>
-
-    <div style="margin:52px 0;border-radius:4px;overflow:hidden;width:100%;">
-      <img src="TeamPicA.webp" alt="Team workshop session" style="width:100%;display:block;object-fit:cover;max-height:480px;object-position:center center;">
-    </div>
-
-    <div class="eyebrow" style="margin-top:52px;">AI Transition</div>
 
     <p class="l-arc">At Full Circle I drove initiatives to identify how AI could synthesize large data sets to inform design strategy, leveraged it to conceptualize new models of interaction, and fostered AI literacy on my team, always ensuring designers led and outputs met the bar for accuracy, quality, and player value. I see AI as the current inflection point for design leadership, and I'm already navigating it the same way I've navigated every transformation before it: with curiosity, rigor, a collaborative spirit, and a clear point of view on what's worth pursuing.</p>
 
-    <div style="margin-top:52px;border-left:1px solid var(--sage);padding:32px 36px;background:rgba(143,181,147,0.06);border-radius:0 4px 4px 0;">
-      <p style="font-family:'Archivo',sans-serif;font-size:clamp(18px,2vw,24px);font-weight:300;font-style:italic;line-height:1.45;letter-spacing:-0.005em;color:var(--ink);margin-bottom:20px;">I'm drawn to organizations where design strategy shapes product direction and design leadership has measurable impact. Consumer technology, creative tools, health tech, learning, and play with big teams and small ones, what matters is an interesting problem and designing towards it.</p>
-      <p style="font-size:15px;color:var(--muted);">If that sounds like what your team is building, <a href="mailto:sunleeux@gmail.com" style="color:var(--sage);text-decoration:none;border-bottom:1px solid rgba(143,181,147,0.4);transition:border-color 0.2s;">let's connect.</a></p>
-    </div>
+    <p class="l-closing">I'm drawn to organizations where design leadership elevates product direction and drives real impact, especially where experience is the product: consumer technology, creative tools, learning, and play. That includes both scaled product organizations and smaller teams where design has meaningful influence and ambition to match.</p>
+    <p class="l-cta">If that sounds like what your team is building, <a href="mailto:sunleeux@gmail.com" style="color:var(--sage);text-decoration:none;border-bottom:1px solid rgba(122,158,126,0.4);">let's connect.</a></p>
 
   </div>
 

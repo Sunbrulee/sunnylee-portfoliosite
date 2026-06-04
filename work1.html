@@ -215,43 +215,14 @@
 
   .work-row {
     display: grid;
-    grid-template-columns: 56px 110px 1fr 1.2fr 0.6fr 88px;
+    grid-template-columns: 56px 1fr 1.4fr 0.6fr 88px;
     gap: 32px;
-    align-items: stretch;
-    padding: 28px 0;
+    align-items: baseline;
+    padding: 36px 0;
     border-top: 1px solid var(--rule);
     position: relative;
     cursor: pointer;
     transition: padding 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-  }
-
-  /* THUMBNAIL */
-  .thumb {
-    width: 110px;
-    height: calc(100% + 56px - 4px);
-    margin-top: calc(-28px + 2px);
-    margin-bottom: calc(-28px + 2px);
-    border-radius: 0;
-    overflow: hidden;
-    flex-shrink: 0;
-    position: relative;
-    align-self: stretch;
-    background: var(--bg-soft);
-  }
-
-  .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.4s ease;
-    filter: brightness(0.6);
-  }
-
-  .work-row:hover .thumb img {
-    transform: scale(1.06);
-    filter: brightness(1);
   }
 
   .work-row.revealed { opacity: 1; transform: translateY(0); }
@@ -272,11 +243,39 @@
   .work-row:hover { padding-left: 16px; }
   .work-row:hover .num { color: var(--sage-line); }
 
-  .num { font-family: 'Archivo', sans-serif; font-style: italic; font-size: 13px; color: var(--muted); transition: color 0.3s ease; align-self: center; }
-  .title { font-family: 'Archivo', sans-serif; font-weight: 400; font-size: clamp(20px, 2.2vw, 28px); letter-spacing: -0.02em; line-height: 1.05; align-self: center; }
-  .ctx { font-size: 15px; color: var(--muted); line-height: 1.55; align-self: center; }
-  .role { font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); align-self: center; }
-  .year { font-family: 'Archivo', sans-serif; font-style: italic; font-size: 12px; color: var(--ink); text-align: right; padding-right: 5px; align-self: center; }
+  .num {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    transition: color 0.3s ease;
+  }
+
+  .title {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 28px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  .ctx { font-size: 15px; color: var(--muted); line-height: 1.55; }
+
+  .role {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .year {
+    font-family: 'Archivo', sans-serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink);
+    text-align: right;
+    padding-right: 5px;
+  }
 
   /* STATEMENT */
   .statement {
@@ -374,47 +373,6 @@
     letter-spacing: 0.22em;
     color: var(--muted);
   }
-
-  /* OVERLAY BACKGROUND COLOUR PER ENTRY */
-  .overlay { transition: background 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.4s ease; }
-
-  .overlay.entry-dark { color: #F5F2ED; }
-  .overlay.entry-dark .o-kicker { color: rgba(245,242,237,0.7); }
-  .overlay.entry-dark .o-title { color: #F5F2ED; }
-  .overlay.entry-dark .o-label { color: #A8D4AC; }
-  .overlay.entry-dark .o-list li { color: rgba(245,242,237,0.82); }
-  .overlay.entry-dark .o-list li::before { color: #A8D4AC; }
-  .overlay.entry-dark .o-signal { color: #A8D4AC; }
-  .overlay.entry-dark .o-signal-wrap { background: rgba(168,212,172,0.1); }
-  .overlay.entry-dark .o-signal::before { background: #A8D4AC; }
-  .overlay.entry-dark .o-leadership { color: #E8C96A; }
-  .overlay.entry-dark .o-leadership-wrap { background: rgba(232,201,106,0.1); }
-  .overlay.entry-dark .overlay-top { border-bottom-color: rgba(245,242,237,0.15); }
-  .overlay.entry-dark .back-btn { color: rgba(245,242,237,0.6); }
-  .overlay.entry-dark .back-btn:hover { color: #A8D4AC; }
-  .overlay.entry-dark .arr { border-color: rgba(245,242,237,0.22); color: rgba(245,242,237,0.6); }
-  .overlay.entry-dark .arr:hover:not(:disabled) { border-color: #A8D4AC; color: #A8D4AC; }
-  .overlay.entry-dark .counter { color: rgba(245,242,237,0.5); }
-  .overlay.entry-dark .overlay-img-panel { border-right-color: rgba(245,242,237,0.15); }
-
-  .overlay.entry-light { color: #1E1C1A; }
-  .overlay.entry-light .o-kicker { color: rgba(30,28,26,0.62); }
-  .overlay.entry-light .o-title { color: #1E1C1A; }
-  .overlay.entry-light .o-label { color: #3A6B3E; }
-  .overlay.entry-light .o-list li { color: rgba(30,28,26,0.78); }
-  .overlay.entry-light .o-list li::before { color: #3A6B3E; }
-  .overlay.entry-light .o-signal { color: #3A6B3E; }
-  .overlay.entry-light .o-signal-wrap { background: rgba(58,107,62,0.25); }
-  .overlay.entry-light .o-signal::before { background: #3A6B3E; }
-  .overlay.entry-light .o-leadership { color: #7A5500; }
-  .overlay.entry-light .o-leadership-wrap { background: rgba(122,85,0,0.25); }
-  .overlay.entry-light .overlay-top { border-bottom-color: rgba(30,28,26,0.15); }
-  .overlay.entry-light .back-btn { color: rgba(30,28,26,0.52); }
-  .overlay.entry-light .back-btn:hover { color: #3A6B3E; }
-  .overlay.entry-light .arr { border-color: rgba(30,28,26,0.2); color: rgba(30,28,26,0.52); }
-  .overlay.entry-light .arr:hover:not(:disabled) { border-color: #3A6B3E; color: #3A6B3E; }
-  .overlay.entry-light .counter { color: rgba(30,28,26,0.5); }
-  .overlay.entry-light .overlay-img-panel { border-right-color: rgba(30,28,26,0.15); }
 
   /* OVERLAY */
   .overlay {
@@ -659,13 +617,6 @@
     line-height: 0.93;
     letter-spacing: -0.03em;
     margin-bottom: 44px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1) 0.3s, transform 0.45s cubic-bezier(0.22,1,0.36,1) 0.3s;
-  }
-  .o-title.in {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .o-label {
@@ -855,21 +806,20 @@
     nav ul { gap: 20px; font-size: 11px; }
     nav ul li a { min-height: 44px; display: inline-flex; align-items: center; }
 
-    /* Work index rows — num + thumb + stacked content */
+    /* Work index rows — 2 col: number + stacked content */
     .work-row {
-      grid-template-columns: 32px 99px 1fr;
-      grid-template-rows: auto auto auto;
+      grid-template-columns: 32px 1fr;
+      grid-template-rows: auto auto;
       gap: 8px 12px;
       padding: 20px 0;
       align-items: start;
     }
     .num { grid-column: 1; grid-row: 1; font-size: 12px; padding-top: 4px; }
-    .thumb { grid-column: 2; grid-row: 1 / 4; width: 99px; height: calc(100% + 40px - 4px); margin-top: calc(-20px + 2px); margin-bottom: calc(-20px + 2px); border-radius: 0; align-self: stretch; }
-    .title { grid-column: 3; grid-row: 1; font-size: clamp(18px, 5vw, 24px); line-height: 1.1; }
+    .title { grid-column: 2; grid-row: 1; font-size: clamp(18px, 5vw, 24px); line-height: 1.1; }
     /* a11y: minimum 15px for body/context text */
-    .ctx { grid-column: 3; grid-row: 2; font-size: 15px; line-height: 1.6; }
-    .role { grid-column: 3; grid-row: 3; font-size: 12px; margin-top: 4px; }
-    .year { display: none; }
+    .ctx { grid-column: 2; grid-row: 2; font-size: 15px; line-height: 1.6; }
+    .role { grid-column: 2; grid-row: 3; font-size: 12px; margin-top: 4px; }
+    .year { grid-column: 1; grid-row: 2; font-size: 12px; text-align: left; color: var(--muted); }
 
     /* Overlay nav bar */
     .overlay-top {
@@ -987,7 +937,6 @@
 
       <div class="work-row" onclick="openOverlay(0)">
         <div class="num">01.</div>
-        <div class="thumb"><img src="skate.webp" alt="" loading="lazy" style="object-position:center top;"></div>
         <div class="title">Full Circle / skate.</div>
         <div class="ctx">End-to-end Experience Design leadership for a free-to-play live service game with 15 million players through the onboarding funnel and measurable retention lift across all audience segments.</div>
         <div class="role">Head of Experience Design</div>
@@ -996,16 +945,14 @@
 
       <div class="work-row" onclick="openOverlay(1)">
         <div class="num">02.</div>
-        <div class="thumb"><img src="Mobile1.webp" alt="" loading="lazy"></div>
         <div class="title">EA Group Mobile Studios</div>
-        <div class="ctx">Experience Design leadership across EA's Star Wars mobile studios: player journey frameworks, pre-production Experience Design criteria, and talent hiring infrastructure.</div>
+        <div class="ctx">Experience Design leadership across EA's Star Wars mobile studios: player journey frameworks, pre-production XD criteria, and talent hiring infrastructure.</div>
         <div class="role">Sr. Director, Experience Design</div>
         <div class="year">2019–2021</div>
       </div>
 
       <div class="work-row" onclick="openOverlay(2)">
         <div class="num">03.</div>
-        <div class="thumb" style="background:#ffffff;display:flex;align-items:center;justify-content:center;padding:8px;"><img src="EA_transparent.webp" alt="" loading="lazy" style="width:auto;height:auto;max-width:80%;max-height:80%;object-fit:contain;"></div>
         <div class="title">Experience Design Operations</div>
         <div class="ctx">Co-led the creation of Experience Design career framework, dual-track career path, and global rollout across EA's studios, establishing a new discipline and subdomains at EA.</div>
         <div class="role">Director, Experience Design</div>
@@ -1014,7 +961,6 @@
 
       <div class="work-row" onclick="openOverlay(3)">
         <div class="num">04.</div>
-        <div class="thumb"><img src="FIFA13.webp" alt="" loading="lazy" style="object-position:center top;"></div>
         <div class="title">EA Sports</div>
         <div class="ctx">Drove adoption of a shared UI system across FIFA, Madden NFL, NHL, and UFC and created one of the first UX Director roles at EA Sports, establishing player-centred methods.</div>
         <div class="role">Creative Director / UX Director</div>
@@ -1023,7 +969,6 @@
 
       <div class="work-row" onclick="openOverlay(4)">
         <div class="num">05.</div>
-        <div class="thumb"><img src="ProvidenceCrop.png" alt="" loading="lazy" style="object-position:top center;"></div>
         <div class="title">Providence Digital Innovation</div>
         <div class="ctx">UX leadership across clinical healthcare experiences, from stroke triage to telehealth and related patient-facing care tools.</div>
         <div class="role">UX Design Leader</div>
@@ -1091,7 +1036,6 @@
   const workEntries = [
     {
       kicker: 'Head of Experience Design · Full Circle Studio · 2021–2026',
-      overlayBg: '#25756E', overlayText: 'dark',
       title: 'Experience Design at Full Circle Studio',
       heroImg: 'skate.webp',
       imgPosition: 'center top',
@@ -1112,7 +1056,6 @@
     },
     {
       kicker: 'Senior Director of Experience Design · EA Group Mobile Studios · 2019–2021',
-      overlayBg: '#1E1E1E', overlayText: 'dark',
       title: 'EA Group Mobile Studios',
       heroImg: 'Mobile1.webp',
       imgPosition: 'left center',
@@ -1125,33 +1068,31 @@
       outcomes: [
         'Led Experience Design across 4 studios and multiple Star Wars mobile titles with no shared infrastructure.',
         'A shared player journey framework adopted across studios, giving product, design, and production a common language for decisions, picked up independently by other EA teams beyond the original mandate.',
-        'Established pre-production Experience Design criteria that clarified what the discipline was expected to deliver before products moved into production.'
+        'Established pre-production XD criteria that clarified what the discipline was expected to deliver before products moved into production.'
       ],
       signal: 'Similar problems show up across teams, but the same approach rarely works everywhere. Studio culture, team dynamics, and collaboration styles shape what will actually land. Influence starts with listening. The goal isn\'t compromise. It\'s building shared understanding that gives people confidence to move forward together.'
     },
     {
       kicker: 'Director of Experience Design · EA Studios · 2018–2019',
-      overlayBg: '#F5F0E8', overlayText: 'light',
       title: 'Experience Design Operations at EA Studios',
       heroImg: 'EA_PANEL',
       heroPanelBg: '#FFFFFF',
       heroLogo: 'EA_transparent.webp',
       context: 'Before this work, Experience Design didn\'t formally exist at EA. UX, UI, and Technical Design operated in separate job families with no shared definition of the discipline or its expectations. Working with EA\'s Head of Experience Design and leaders across the company, the goal was to establish Experience Design as a foundational discipline and create the career framework needed to scale it across EA\'s global studios. That included defining expectations at every level, building dual-track paths for management and principal IC growth, and driving adoption across the organization.',
       myWork: [
-        'Worked with other Experience Design leaders across EA to build the Experience Design Job Family, defining roles, levels, growth paths, and performance criteria across the full career spectrum',
+        'Worked with other XD leaders across EA to build the Experience Design Job Family, defining roles, levels, growth paths, and performance criteria across the full career spectrum',
         'Advocated for a dual-track career path: a management route and a principal individual contributor route, giving Technical, UX, and UI designers clarity on how they could grow',
         'Led the rollout across EA\'s global studios, presenting and socializing the framework to studios and regional leadership to drive understanding and adoption',
       ],
       outcomes: [
-        'Experience Design career framework adopted across EA\'s global studios, covering approximately 185 UX, UI, and experience technology practitioners.',
+        'XD career framework adopted across EA\'s global studios, covering approximately 185 UX, UI, and experience technology practitioners.',
         'First shared definition of what Experience Design meant at every career level, where none had existed before.',
         'Dual-track growth paths established for management and principal IC, giving designers a clear path forward for the first time.'
       ],
       signal: 'Defining a discipline is as much organizational work as it is design work. The framework matters less than the conditions you create for people to see themselves in it. That requires listening before advocating, patience for people to catch up to a new idea, and the flexibility to let the framework evolve across different teams and product contexts. Creating something doesn\'t make it real. Adoption comes through socialization, visible examples, and a shared language people can actually use.'
     },
     {
-      kicker: 'Creative Director and UX Director · EA Sports · 2007–2012',
-      overlayBg: '#1E4F7F', overlayText: 'dark',
+      kicker: 'Creative Director, UI / UX Director · EA Sports · 2007–2012',
       title: 'EA Sports',
       heroImg: 'EASPORTS_collage',
       heroImgs: ['FIFA13.webp', 'nhl-13-playstation-3-art-banner.jpg', 'Madden13.webp'],
@@ -1170,7 +1111,6 @@
     },
     {
       kicker: 'UX Design Leader · Providence Digital Innovation Group · 2015–2018',
-      overlayBg: '#FFFFFF', overlayText: 'light',
       title: 'Providence Digital Innovation Group',
       heroImg: 'ProvidenceCrop.png',
       context: 'Designing for high-stakes, highly regulated health experiences operates under constraints most product environments never encounter. At Providence Digital Innovation Group, the work spanned stroke symptom triage, telehealth scheduling, and digital health experiences across hardware, web, and mobile. In stroke care, "Time is brain." That reality sharpened the focus around simplicity, clarity, and responsiveness in moments where patients and clinicians needed the exchange of information to happen immediately and without friction. Working alongside product management, engineering, and clinical teams, I helped design experiences for both patients navigating confusing systems and clinicians operating under pressure.',
@@ -1190,11 +1130,9 @@
 
   let cur = 0;
   let overlayBusy = false;
-  const SEQ_DELAYS = [500, 680, 840, 1000];
+  const SEQ_DELAYS = [0, 180, 340, 500];
 
   function runSequence() {
-    const title = document.querySelector('.o-title');
-    if (title) title.classList.add('in');
     SEQ_DELAYS.forEach((delay, i) => {
       setTimeout(() => {
         const el = document.getElementById('oSeq' + i);
@@ -1203,31 +1141,16 @@
     });
   }
 
-  function applyOverlayColour(entry) {
-    const ov = document.getElementById('overlay');
-    ov.style.background = entry.overlayBg || '';
-    ov.classList.remove('entry-dark', 'entry-light');
-    if (entry.overlayBg) {
-      ov.classList.add(entry.overlayText === 'light' ? 'entry-light' : 'entry-dark');
-    }
-  }
-
   function openOverlay(i) {
     cur = i;
     renderOverlay();
-    applyOverlayColour(workEntries[i]);
     document.getElementById('overlay').classList.add('open');
     document.getElementById('overlayBody').scrollTop = 0;
     setTimeout(runSequence, 80);
   }
 
   function closeOverlay() {
-    const ov = document.getElementById('overlay');
-    ov.classList.remove('open');
-    setTimeout(() => {
-      ov.style.background = '';
-      ov.classList.remove('entry-dark', 'entry-light');
-    }, 400);
+    document.getElementById('overlay').classList.remove('open');
     overlayBusy = false;
   }
 
@@ -1238,19 +1161,17 @@
     const panel = body.querySelector('.overlay-img-panel');
     const scroll = body.querySelector('.overlay-scroll');
 
+    // Fade out seq blocks + image panel
     ['oSeq0','oSeq1','oSeq2','oSeq3'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.remove('in');
     });
-    const title = document.querySelector('.o-title');
-    if (title) title.classList.remove('in');
     if (panel) panel.style.opacity = '0';
     if (scroll) scroll.style.opacity = '0';
 
     setTimeout(() => {
       cur = Math.max(0, Math.min(workEntries.length - 1, cur + d));
       renderOverlay();
-      applyOverlayColour(workEntries[cur]);
       body.scrollTop = 0;
       const newPanel = body.querySelector('.overlay-img-panel');
       const newScroll = body.querySelector('.overlay-scroll');
