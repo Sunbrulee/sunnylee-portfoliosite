@@ -1063,7 +1063,7 @@
 <!-- OVERLAY -->
 <div class="overlay" id="overlay">
   <div class="overlay-top">
-    <button class="back-btn" onclick="closeOverlay()">
+    <button class="back-btn" onclick="backToWork()">
       <span class="back-arrow">←</span> All work
     </button>
     <div class="overlay-nav-right">
@@ -1220,6 +1220,10 @@
     document.getElementById('overlay').classList.add('open');
     document.getElementById('overlayBody').scrollTop = 0;
     setTimeout(runSequence, 80);
+  }
+
+  function backToWork() {
+    window.location.href = 'index.html#work-section';
   }
 
   function closeOverlay() {
@@ -1396,6 +1400,19 @@
       else cue.classList.remove('hidden');
     }, { passive: true });
   }
+
+  /* DEEP LINK: open a specific project overlay from ?p=index */
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('p');
+    if (p !== null) {
+      const i = parseInt(p, 10);
+      if (!isNaN(i) && i >= 0 && i < workEntries.length) {
+        // open without the cue, slight delay so layout settles
+        setTimeout(() => openOverlay(i), 100);
+      }
+    }
+  })();
 
 </script>
 </body>
