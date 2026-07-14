@@ -209,6 +209,48 @@
     padding-bottom: 12px;
   }
 
+  /* HERO POV */
+  .hero-pov {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 42ch;
+    margin: 18px 0 16px;
+  }
+
+  .hero-pov-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .hero-pov-list li {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.65;
+    letter-spacing: 0.005em;
+    color: var(--muted);
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .hero-pov-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sage);
+  }
+
   /* WORK INDEX */
   .index-head {
     display: grid;
@@ -785,7 +827,13 @@
       <h1 style="font-style:italic;font-size:clamp(51px,6.4vw,96px);">Leading design<br>through<br><em style="color:var(--sage);">transformation.</em></h1>
     </div>
     <div style="padding-top:24px;">
-      <p class="lede" style="margin:0;">Turning product intent into experiences people understand, trust, value, and adopt by aligning teams, strengthening design capability, and driving measurable customer and business outcomes.</p>
+      <p class="lede" style="margin:0;padding-bottom:0;">As AI makes exploration and execution dramatically faster, the value I bring as a product design leader is to:</p>
+      <ul class="hero-pov-list" style="margin-top:20px;">
+        <li>Define the right design problems with clarity.</li>
+        <li>Set clear experience direction.</li>
+        <li>Exercise judgment and taste.</li>
+        <li>Align teams to deliver meaningful customer and business outcomes.</li>
+      </ul>
     </div>
   </section>
 
