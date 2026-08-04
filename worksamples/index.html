@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Commercial Work Samples — Sunny Lee</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, max-snippet:-1, max-image-preview:none">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<style>
+/* ==================================================================
+   COMMERCIAL WORK SAMPLES — standalone. No links to the main site.
+
+   Landing page with two key-art thumbnails; each opens its own
+   project view (role panel first, then screenshots).
+   Motion is slide-in-and-up. Navigation is real anchors with hash
+   routing (#rise-to-power, #skate) so links are shareable and
+   browser back/forward works.
+
+   Two things this file is careful about:
+   1. Inactive views get pointer-events:none. An opacity:0 element
+      still receives clicks, so without this the last view in the DOM
+      sits invisibly over the page and swallows every click.
+   2. Every view scrolls and centres with margin:auto rather than
+      justify-content:center, so tall content is never clipped.
+   ================================================================== */
+:root{
+  --bg:#2b2b2b; --surface:#1e1e1e; --ink:#f7f5f1; --muted:#d2cec7;
+  --sage:#9cc4a0; --line:rgba(247,245,241,.2);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --rtp:#8aa9dd; --skate:#6fb0e8;
+  /* barTop clears the deck label plus the persistent project overview.
+     barBot reserves room under the screenshots; barLift raises the
+     control bar so the arrows sit close to the image. */
+  --barTop:172px; --barLift:200px; --barBot:296px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh;background:var(--bg);color:var(--ink);
+  font:400 17px/1.6 Archivo,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block}
+a{color:inherit;text-decoration:none}
+.label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--muted)}
+
+/* ---------- fixed chrome ---------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:80;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px clamp(18px,3vw,44px);
+  background:linear-gradient(var(--bg) 62%,rgba(43,43,43,0));
+  pointer-events:none;
+}
+.topbar > *{pointer-events:auto}
+.deck-label{display:flex;align-items:center;gap:12px;transition:color .3s var(--ease)}
+a.deck-label:hover{color:var(--ink)}
+a.deck-label:hover::before{width:44px}
+.deck-label::before{transition:width .4s var(--ease)}
+.deck-label::before{content:"";width:30px;height:1px;background:var(--sage);flex:none}
+.back{
+  display:none;align-items:center;gap:9px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--muted);
+  transition:color .3s var(--ease);
+}
+.back.show{display:inline-flex}
+.back:hover{color:var(--ink)}
+.back i{font-style:normal;display:inline-block;transition:transform .5s var(--ease)}
+.back:hover i.l{transform:translateX(-5px)}
+.back:hover i.r{transform:translateX(5px)}
+
+/* ---------- persistent project overview (every slide) ---------- */
+.overview{
+  position:fixed;top:56px;left:0;right:0;z-index:70;
+  display:none;
+  padding:14px clamp(18px,3vw,44px) 16px;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+  pointer-events:none;
+}
+.overview.show{display:block}
+.overview .oline1{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.overview .oname{font-size:clamp(18px,1.7vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.overview .ometa{font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--accent,var(--sage))}
+.overview .oline2{
+  margin-top:6px;font-size:14px;line-height:1.5;color:var(--muted);max-width:112ch;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.overview .orole{color:var(--ink);font-weight:600}
+@media(max-width:880px){
+  .overview .oline2{-webkit-line-clamp:3;font-size:13px}
+}
+
+/* ==================================================================
+   VIEWS — slide in and up
+   ================================================================== */
+.view{
+  position:fixed;inset:0;z-index:10;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:var(--barTop) clamp(18px,3vw,44px) var(--barBot);
+  opacity:0;transform:translateY(44px);
+  pointer-events:none;                 /* <- critical: no phantom click target */
+  transition:transform .7s var(--ease),opacity .45s var(--ease);
+}
+.view.active{opacity:1;transform:translateY(0);pointer-events:auto}
+.view.leaving{opacity:0;transform:translateY(-44px)}
+
+/* scroll-safe centring: margin auto, never justify-content */
+.center{margin:auto;width:100%}
+
+/* ---------- landing ---------- */
+.landing-inner{max-width:1320px;padding:24px 0}
+.landing h1{font-weight:600;font-size:clamp(28px,3.8vw,52px);line-height:1.06;letter-spacing:-.03em}
+.landing .lede{margin-top:14px;max-width:66ch;color:var(--muted);font-size:clamp(15px,1.15vw,17px)}
+
+.tiles{margin-top:clamp(26px,3.2vw,44px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,36px);align-items:start}
+.tile{display:block}
+.tile .art,.tile .tname,.tile .tmeta{display:block}
+.tile .art{
+  position:relative;overflow:hidden;background:var(--surface);
+  width:100%;
+  aspect-ratio:16/9;border:1px solid var(--line);
+}
+/* Rise to Power: no frame. Black ground with the logo contained, so
+   the logotype is never cropped by the 16:9 box */
+.tile .art.framed{background:#000}
+.tile .art.framed img{object-fit:contain}
+
+/* skate. key art is square (1024x1024) and the wordmark sits at
+   13.5%-25.2% of its height. A default centre crop into 16:9 starts
+   at 21.9% and cuts the logo off, so bias the crop upward. */
+.tile .art.keyart-skate img{object-position:center 22%}
+
+.tile .art img{width:100%;height:100%;object-fit:cover;transform:scale(1.001);transition:transform 1s var(--ease)}
+.tile:hover .art img,.tile:focus-visible .art img{transform:scale(1.05)}
+.tile .art::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.65));opacity:0;transition:opacity .5s var(--ease)}
+.tile:hover .art::after,.tile:focus-visible .art::after{opacity:1}
+/* hover label sits in the bottom-right and drifts in from that corner */
+.tile .enter{
+  position:absolute;right:20px;bottom:18px;z-index:2;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#fff;
+  text-shadow:0 1px 12px rgba(0,0,0,.9);
+  opacity:0;transform:translate(16px,16px);
+  transition:opacity .45s var(--ease),transform .55s var(--ease);
+}
+.tile:hover .enter,.tile:focus-visible .enter{opacity:1;transform:translate(0,0)}
+.tile:focus-visible{outline:2px solid var(--sage);outline-offset:6px}
+
+/* 50px buffer under the thumbnail */
+.tile .tname{margin-top:50px;font-size:clamp(20px,1.8vw,28px);font-weight:600;letter-spacing:-.02em;line-height:1.12}
+.tile .tmeta{margin-top:7px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--sage)}
+.tile .tdesc{display:block;margin-top:14px;font-size:15px;font-weight:400;line-height:1.6;color:var(--muted);max-width:56ch}
+
+/* ---------- project views ---------- */
+.pslide{display:none;width:100%}
+.pslide.on{display:block}
+.pslide.anim{animation:riseIn .7s var(--ease) both}
+@keyframes riseIn{from{opacity:0;transform:translateY(38px)}to{opacity:1;transform:translateY(0)}}
+
+/* screenshots: centred, contained, never cropped */
+.figwrap{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;min-height:calc(100vh - var(--barTop) - var(--barBot));
+  padding:8px 0;
+}
+.figwrap img{
+  max-width:100%;
+  max-height:calc(100vh - var(--barTop) - var(--barBot) - 16px);
+  width:auto;height:auto;object-fit:contain;margin:0 auto;
+}
+
+/* role panel */
+.role-panel{max-width:900px;margin:0 auto;padding:24px 0}
+.role-panel .rname{font-size:clamp(30px,4.4vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.04}
+.role-panel .rmeta{margin-top:14px;font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent,var(--sage))}
+.role-panel dl{margin-top:clamp(24px,3vw,40px);border-top:1px solid var(--line);padding-top:clamp(20px,2.4vw,30px);display:grid;gap:24px}
+.role-panel dt{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);opacity:.85;margin-bottom:7px}
+.role-panel dd{font-size:clamp(16px,1.3vw,19px);line-height:1.62;max-width:70ch}
+.role-panel dd.dim{color:var(--muted)}
+
+/* ---------- bottom bar ---------- */
+.botbar{
+  position:fixed;bottom:var(--barLift);left:0;right:0;z-index:80;
+  display:none;align-items:center;justify-content:space-between;gap:20px;
+  padding:16px clamp(18px,3vw,44px);
+  pointer-events:none;
+}
+.botbar.show{display:flex}
+.botbar > *{pointer-events:auto}
+.cap{max-width:60ch}
+.cap .n{font-size:12px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.cap .t{margin-top:2px;font-size:15px;color:var(--ink)}
+.ctrls{display:flex;align-items:center;gap:9px;flex:none}
+.ctrls button{
+  width:44px;height:44px;border-radius:999px;cursor:pointer;
+  background:rgba(43,43,43,.9);border:1px solid var(--line);color:var(--ink);
+  font:inherit;font-size:16px;font-weight:500;line-height:1;
+  transition:border-color .3s var(--ease),color .3s var(--ease);
+}
+.ctrls button:hover:not(:disabled){border-color:var(--sage);color:var(--sage)}
+.ctrls button:disabled{opacity:.3;cursor:default}
+.counter{font-size:13px;white-space:nowrap;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.08em;min-width:62px;text-align:center}
+
+@media(max-width:880px){
+  .tiles{grid-template-columns:1fr;gap:34px}
+  .tile .tname{margin-top:50px}
+  .figwrap{min-height:auto;padding:12px 0}
+  .figwrap img{max-height:none}
+  :root{--barLift:0px; --barBot:96px}
+  .cap{display:none}
+  .ctrls{margin-left:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .view,.tile .art img,.tile .enter{transition-duration:.01ms!important}
+  .pslide.anim{animation-duration:.01ms}
+}
+</style>
+</head>
+<body>
+<!-- ==================================================================
+     TO EDIT A SCREENSHOT CAPTION
+     Each caption lives on its own slide, in the data-caption attribute
+     right next to the image. Change the words inside the quotes.
+
+       <div class="pslide" data-caption="Your text here">
+         <div class="figwrap"><img src="images/…" alt="…"></div>
+       </div>
+
+     TO ADD OR REMOVE A SCREENSHOT
+     Copy or delete a whole <div class="pslide"> … </div> block.
+     The counter and arrows update themselves.
+
+     TO EDIT ROLE TEXT
+     See the <dl> inside each .role-panel below.
+     ================================================================== -->
+
+<div class="topbar">
+  <a class="label deck-label" href="#">Commercial Work Samples</a>
+  <a class="back" id="back" href="#"><span id="backLabel"></span></a>
+</div>
+
+<div class="overview" id="overview">
+  <div class="oline1"><span class="oname" id="ovName"></span><span class="ometa" id="ovMeta"></span></div>
+  <div class="oline2"><span class="orole" id="ovRole"></span> <span id="ovOwned"></span></div>
+</div>
+
+<!-- ================= LANDING ================= -->
+<section class="view landing active" id="v-landing">
+  <div class="center landing-inner">
+    <h1>Commercial work samples.</h1>
+    <p class="lede">Two projects demonstrating interaction design, visual polish, and problem-solving across mobile, console, and PC.</p>
+
+    <div class="tiles">
+      <a class="tile" href="#rise-to-power">
+        <span class="art framed">
+          <img src="images/key-rtp.jpg" alt="Star Wars: Rise to Power key art">
+          <span class="enter">View samples →</span>
+        </span>
+        <span class="tname">Star Wars: Rise to Power</span>
+        <span class="tmeta">EA / Contingency Studio · 2020–2022</span>
+        <span class="tdesc">Rise to Power was EA's free-to-play mobile strategy game. After more than two years in beta, it was reimagined in 2019 to better compete with a complete UX and UI redesign, modern visual direction, simplified gameplay, improved onboarding, and clearer navigation.</span>
+      </a>
+
+      <a class="tile" href="#skate">
+        <span class="art keyart-skate">
+          <img src="images/key-skate.webp" alt="skate. key art">
+          <span class="enter">View samples →</span>
+        </span>
+        <span class="tname">skate.</span>
+        <span class="tmeta">EA / Full Circle Studio · 2025–2026</span>
+        <span class="tdesc">skate. marked the return of EA's beloved skateboarding franchise after more than a decade-long hiatus. The goal was to reimagine the experience for a new generation, broaden its appeal, and evolve it into a modern live service while staying true to what fans loved.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RISE TO POWER ================= -->
+<section class="view" id="v-rtp" style="--accent:var(--rtp)">
+  <div class="center">
+    <div class="pslide on"" data-caption="Rise to Power updated atomic design system — colour, typography, components, motion and template definitions">
+      <div class="figwrap"><img src="images/01-mobile-design-system.webp" alt="Valkyrie design system — atomic definitions, colour, typography, buttons, and template specimens"></div>
+    </div>
+    <div class="pslide" data-caption="Player profile — power, kills, and scout / rally / attack actions">
+      <div class="figwrap"><img src="images/02-mobile-after.webp" alt="Player profile modal on the world map with power and kill stats and scout, rally, and attack actions"></div>
+    </div>
+    <div class="pslide" data-caption="New Troops — march composition, action point cost, and outcome forecast">
+      <div class="figwrap"><img src="images/03-mobile-darth.webp" alt="New Troops full-screen modal with unit sliders, total power, action point cost, and march timer"></div>
+    </div>
+    <div class="pslide" data-caption="Initial Rise to Power mobile concept">
+      <div class="figwrap"><img src="images/04-mobile-map.webp" alt="World map HUD shown in context on a handheld device"></div>
+    </div>
+    <div class="pslide" data-caption="Player Journey Lifecycle — early, mid and elder game with sinks and sources">
+      <div class="figwrap"><img src="images/05-mobile-player-journey.webp" alt="Player journey lifecycle map across Intro, Explore, and Grow stages, showing activities, triggers, feedback and progress, motivations, and negative triggers for Collector, Advancer, and Champion archetypes"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SKATE. ================= -->
+<section class="view" id="v-skate" style="--accent:var(--skate)">
+  <div class="center">
+    <div class="pslide on"" data-caption="Direction — &quot;Pragmatic Punk&quot;">
+      <div class="figwrap"><img src="images/05-skate-direction.webp" alt="Direction slide — Pragmatic Punk"></div>
+    </div>
+    <div class="pslide" data-caption="Aesthetic pillars — bold minimalism and edgy punk">
+      <div class="figwrap"><img src="images/06-skate-aesthetic.webp" alt="Aesthetic pillars — bold minimalism and edgy punk, with visual reference boards"></div>
+    </div>
+    <div class="pslide" data-caption="Main Menu — Customize Skater">
+      <div class="figwrap"><img src="images/07-skate-customize-skater.webp" alt="Skater customization — apparel, accessories, board, tattoos, gestures, and appearance"></div>
+    </div>
+    <div class="pslide" data-caption="San Vansterdam — district map and navigation">
+      <div class="figwrap"><img src="images/08-skate-map.webp" alt="San Vansterdam district map with locked and unlocked neighbourhoods and waypoint controls"></div>
+    </div>
+    <div class="pslide" data-caption="Quick Drop — UGC creation tool">
+      <div class="figwrap"><img src="images/09-skate-quickdrop.webp" alt="Quick Drop — in-world park building with lower, raise, rotate, and place actions"></div>
+    </div>
+  </div>
+</section>
+
+<div class="botbar" id="botbar">
+  <div class="cap"><div class="n" id="capN"></div><div class="t" id="capT"></div></div>
+  <div class="ctrls">
+    <button id="prev" aria-label="Previous">←</button>
+    <span class="counter" id="counter"></span>
+    <button id="next" aria-label="Next">→</button>
+  </div>
+</div>
+
+<script>
+const ROUTES = { '':'landing', '#':'landing', '#rise-to-power':'rtp', '#skate':'skate' };
+
+/* the top-right link points at the other project rather than back to
+   the landing page. Escape still returns to the landing page. */
+const OVERVIEW = {
+  rtp: { name:'Star Wars: Rise to Power',
+         meta:'EA / Contingency Studio · 2020–2022',
+         role:'Senior Director, Experience Design —',
+         owned:'Setting design principles and driving direction of the atomic design system for mobile. Reviewing and approving execution and iterations of UX and UI.' },
+  skate:{ name:'skate.',
+         meta:'EA / Full Circle Studio · 2025–2026',
+         role:'Head of Experience Design —',
+         owned:'Setting design principles and driving direction of the atomic design system for console, PC, and mobile. Reviewing and approving execution and iterations of UX and UI.' },
+};
+
+const CROSSLINK = {
+  rtp:   { href:'#skate',          html:'Next project <i class="r">→</i>' },
+  skate: { href:'#rise-to-power',  html:'<i class="l">←</i> Last project' },
+};
+
+/* every slide is a screenshot now; the overview is persistent chrome */
+const START_SLIDE = 0;
+const views  = { landing:document.getElementById('v-landing'),
+                 rtp:document.getElementById('v-rtp'),
+                 skate:document.getElementById('v-skate') };
+const botbar = document.getElementById('botbar');
+const back   = document.getElementById('back');
+let view = 'landing', idx = 0;
+
+const slidesOf = v => [...views[v].querySelectorAll('.pslide')];
+
+function showSlide(v, n, animate){
+  const list = slidesOf(v);
+  list.forEach((s,i) => { s.classList.toggle('on', i === n); s.classList.remove('anim'); });
+  if (animate){ void list[n].offsetWidth; list[n].classList.add('anim'); }
+  views[v].scrollTop = 0;
+}
+
+function paintBar(){
+  const ov = document.getElementById('overview');
+  if (view === 'landing'){
+    botbar.classList.remove('show'); back.classList.remove('show'); ov.classList.remove('show');
+    return;
+  }
+  botbar.classList.add('show'); back.classList.add('show');
+
+  const o = OVERVIEW[view];
+  ov.classList.add('show');
+  ov.style.setProperty('--accent', 'var(--' + view + ')');
+  document.getElementById('ovName').textContent  = o.name;
+  document.getElementById('ovMeta').textContent  = o.meta;
+  document.getElementById('ovRole').textContent  = o.role;
+  document.getElementById('ovOwned').textContent = o.owned;
+
+  const link = CROSSLINK[view];
+  back.href = link.href;
+  document.getElementById('backLabel').innerHTML = link.html;
+  const list = slidesOf(view);
+  document.getElementById('capN').textContent = String(idx + 1).padStart(2,'0');
+  document.getElementById('capT').textContent = list[idx].dataset.caption || '';
+  document.getElementById('counter').textContent = (idx + 1) + ' / ' + list.length;
+  document.getElementById('prev').disabled = idx === 0;
+  document.getElementById('next').disabled = idx === list.length - 1;
+}
+
+function render(next){
+  if (next === view) return;
+  const outEl = views[view], inEl = views[next];
+  outEl.classList.add('leaving');
+  outEl.classList.remove('active');
+  setTimeout(() => outEl.classList.remove('leaving'), 700);
+  if (next !== 'landing'){ idx = START_SLIDE; showSlide(next, START_SLIDE, false); }
+  void inEl.offsetWidth;
+  inEl.classList.add('active');
+  inEl.scrollTop = 0;
+  view = next;
+  paintBar();
+}
+
+function route(){ render(ROUTES[location.hash] ?? 'landing'); }
+addEventListener('hashchange', route);
+
+function goSlide(n){
+  if (view === 'landing') return;
+  const list = slidesOf(view);
+  if (n < 0 || n > list.length - 1 || n === idx) return;
+  idx = n;
+  showSlide(view, n, true);
+  paintBar();
+}
+
+document.getElementById('next').addEventListener('click', () => goSlide(idx + 1));
+document.getElementById('prev').addEventListener('click', () => goSlide(idx - 1));
+
+addEventListener('keydown', e => {
+  if (view === 'landing') return;
+  if (['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){ e.preventDefault(); goSlide(idx + 1); }
+  if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){ e.preventDefault(); goSlide(idx - 1); }
+  if (e.key === 'Escape'){ location.hash = ''; }
+});
+
+route();
+paintBar();
+</script>
+</body>
+</html>
