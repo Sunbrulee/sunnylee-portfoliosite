@@ -33,7 +33,7 @@
   /* barTop clears the deck label plus the persistent project overview.
      barBot reserves room under the screenshots; barLift raises the
      control bar so the arrows sit close to the image. */
-  --barTop:172px; --barLift:200px; --barBot:296px;
+  --barTop:186px; --barLift:200px; --barBot:296px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -71,26 +71,40 @@ a.deck-label:hover::before{width:44px}
 .back:hover i.l{transform:translateX(-5px)}
 .back:hover i.r{transform:translateX(5px)}
 
-/* ---------- persistent project overview (every slide) ---------- */
+/* ---------- persistent project overview (every slide) ----------
+   Labelled Role / What I owned / Platform, rather than a run-on
+   sentence. Compact three-column layout so it stays out of the way
+   of the screenshots below it. */
 .overview{
-  position:fixed;top:56px;left:0;right:0;z-index:70;
+  position:fixed;top:52px;left:0;right:0;z-index:70;
   display:none;
-  padding:14px clamp(18px,3vw,44px) 16px;
+  padding:12px clamp(18px,3vw,44px) 14px;
   background:var(--bg);
   border-bottom:1px solid var(--line);
   pointer-events:none;
 }
 .overview.show{display:block}
-.overview .oline1{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.overview .oname{font-size:clamp(18px,1.7vw,24px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
-.overview .ometa{font-size:12px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--accent,var(--sage))}
-.overview .oline2{
-  margin-top:6px;font-size:14px;line-height:1.5;color:var(--muted);max-width:112ch;
+.overview .oline1{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.overview .oname{font-size:clamp(17px,1.5vw,22px);font-weight:600;letter-spacing:-.02em;line-height:1.1}
+.overview .ometa{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,var(--sage))}
+
+.ogrid{
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:minmax(150px,auto) minmax(0,1fr) minmax(110px,auto);
+  gap:8px clamp(24px,3vw,52px);align-items:start;
+}
+.ogrid dt{
+  font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);opacity:.75;margin-bottom:5px;
+}
+.ogrid dd{font-size:13.5px;line-height:1.45;color:var(--ink)}
+.ogrid dd.dim{
+  color:var(--muted);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
 }
-.overview .orole{color:var(--ink);font-weight:600}
-@media(max-width:880px){
-  .overview .oline2{-webkit-line-clamp:3;font-size:13px}
+@media(max-width:980px){
+  .ogrid{grid-template-columns:1fr;gap:10px}
+  .ogrid dd.dim{-webkit-line-clamp:3}
 }
 
 /* ==================================================================
@@ -244,7 +258,11 @@ a.deck-label:hover::before{width:44px}
 
 <div class="overview" id="overview">
   <div class="oline1"><span class="oname" id="ovName"></span><span class="ometa" id="ovMeta"></span></div>
-  <div class="oline2"><span class="orole" id="ovRole"></span> <span id="ovOwned"></span></div>
+  <dl class="ogrid">
+    <div><dt>Role</dt><dd id="ovRole"></dd></div>
+    <div><dt>What I owned</dt><dd class="dim" id="ovOwned"></dd></div>
+    <div><dt>Platform</dt><dd class="dim" id="ovPlatform"></dd></div>
+  </dl>
 </div>
 
 <!-- ================= LANDING ================= -->
@@ -336,12 +354,14 @@ const ROUTES = { '':'landing', '#':'landing', '#rise-to-power':'rtp', '#skate':'
 const OVERVIEW = {
   rtp: { name:'Star Wars: Rise to Power',
          meta:'EA Group Mobile Studios · 2020–2022',
-         role:'Senior Director, Experience Design —',
-         owned:'Setting design principles and driving direction of the atomic design system for mobile. Reviewing and approving execution and iterations of UX and UI.' },
+         role:'Senior Director, Experience Design',
+         owned:'Setting design principles and driving direction of the atomic design system for mobile. Reviewing and approving execution and iterations of UX and UI.',
+         platform:'Mobile' },
   skate:{ name:'skate.',
          meta:'EA / Full Circle Studio · 2025–2026',
-         role:'Head of Experience Design —',
-         owned:'Setting design principles and driving direction of the atomic design system for console, PC, and mobile. Reviewing and approving execution and iterations of UX and UI.' },
+         role:'Head of Experience Design',
+         owned:'Setting design principles and driving direction of the atomic design system for console, PC, and mobile. Reviewing and approving execution and iterations of UX and UI.',
+         platform:'Console, PC, and mobile' },
 };
 
 const CROSSLINK = {
@@ -382,6 +402,7 @@ function paintBar(){
   document.getElementById('ovMeta').textContent  = o.meta;
   document.getElementById('ovRole').textContent  = o.role;
   document.getElementById('ovOwned').textContent = o.owned;
+  document.getElementById('ovPlatform').textContent = o.platform;
 
   const link = CROSSLINK[view];
   back.href = link.href;
