@@ -107,8 +107,8 @@ a.deck-label:hover::before{width:44px}
 /* narrow screens: put the next/last link on its own row beneath the
    deck label, so "Commercial Work Samples" never wraps */
 @media(max-width:760px){
-  .topbar{flex-direction:column;align-items:flex-start;gap:10px}
-  .topbar .back{align-self:flex-start}
+  .topbar{flex-direction:column;align-items:stretch;gap:10px}
+  .topbar .back{align-self:flex-end}   /* stays right-aligned on its own row */
   .deck-label{white-space:nowrap}
 }
 @media(max-width:980px){
