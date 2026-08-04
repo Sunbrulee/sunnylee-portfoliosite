@@ -78,7 +78,7 @@ a.deck-label:hover::before{width:44px}
    sentence. Compact three-column layout so it stays out of the way
    of the screenshots below it. */
 .overview{
-  position:fixed;top:52px;left:0;right:0;z-index:70;
+  position:fixed;top:var(--ovTop,58px);left:0;right:0;z-index:70;
   display:none;
   padding:12px clamp(18px,3vw,44px) 14px;
   background:var(--bg);
@@ -103,6 +103,13 @@ a.deck-label:hover::before{width:44px}
 .ogrid dd.dim{
   color:var(--muted);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+/* narrow screens: put the next/last link on its own row beneath the
+   deck label, so "Commercial Work Samples" never wraps */
+@media(max-width:760px){
+  .topbar{flex-direction:column;align-items:flex-start;gap:10px}
+  .topbar .back{align-self:flex-start}
+  .deck-label{white-space:nowrap}
 }
 @media(max-width:980px){
   .ogrid{grid-template-columns:1fr;gap:10px}
@@ -130,9 +137,12 @@ a.deck-label:hover::before{width:44px}
 
 /* scroll-safe centring: margin auto, never justify-content */
 .center{margin:auto;width:100%}
+/* the landing page reads from the top; centring it pushed the heading
+   far down the page on tall/narrow screens */
+#v-landing .center{margin:0 auto}
 
 /* ---------- landing ---------- */
-.landing-inner{max-width:1320px;padding:24px 0}
+.landing-inner{max-width:1320px;padding:4px 0 24px}
 .landing h1{font-weight:600;font-size:clamp(28px,3.8vw,52px);line-height:1.06;letter-spacing:-.03em}
 .landing .lede{margin-top:14px;max-width:66ch;color:var(--muted);font-size:clamp(15px,1.15vw,17px)}
 
@@ -442,10 +452,22 @@ function render(next){
    hardcoded value, which would otherwise clip the top of the image.
    ------------------------------------------------------------------ */
 function syncChrome(){
-  const ov = document.getElementById('overview');
-  const shown = ov.classList.contains('show');
-  const h = shown ? Math.ceil(ov.getBoundingClientRect().bottom) + 14 : 96;
-  document.documentElement.style.setProperty('--barTop', h + 'px');
+  const root = document.documentElement;
+  const bar  = document.querySelector('.topbar');
+  const ov   = document.getElementById('overview');
+
+  // gap between the deck label and the project header
+  const barBottom = Math.ceil(bar.getBoundingClientRect().bottom);
+  root.style.setProperty('--ovTop', (barBottom + 22) + 'px');
+
+  // content clears whichever chrome is actually on screen
+  requestAnimationFrame(() => {
+    const shown = ov.classList.contains('show');
+    const top = shown
+      ? Math.ceil(ov.getBoundingClientRect().bottom) + 20
+      : barBottom + 24;
+    root.style.setProperty('--barTop', top + 'px');
+  });
 }
 addEventListener('resize', syncChrome);
 addEventListener('orientationchange', syncChrome);
