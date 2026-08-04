@@ -30,7 +30,9 @@
   --sage:#9cc4a0; --line:rgba(247,245,241,.2);
   --ease:cubic-bezier(.16,1,.3,1);
   --rtp:#8aa9dd; --skate:#6fb0e8;
-  /* barTop clears the deck label plus the persistent project overview.
+  /* barTop is a fallback only — syncChrome() measures the overview
+     strip at runtime and overwrites it, so a taller stacked strip on
+     mobile can never overlap the screenshot below.
      barBot reserves room under the screenshots; barLift raises the
      control bar so the arrows sit close to the image. */
   --barTop:186px; --barLift:200px; --barBot:296px;
@@ -104,7 +106,11 @@ a.deck-label:hover::before{width:44px}
 }
 @media(max-width:980px){
   .ogrid{grid-template-columns:1fr;gap:10px}
-  .ogrid dd.dim{-webkit-line-clamp:3}
+  .ogrid dd.dim{-webkit-line-clamp:none;display:block;overflow:visible}
+}
+/* on short screens keep the strip from eating the whole viewport */
+@media(max-height:620px){
+  .ogrid dd.dim{-webkit-line-clamp:2;display:-webkit-box;overflow:hidden}
 }
 
 /* ==================================================================
@@ -413,6 +419,7 @@ function paintBar(){
   document.getElementById('counter').textContent = (idx + 1) + ' / ' + list.length;
   document.getElementById('prev').disabled = idx === 0;
   document.getElementById('next').disabled = idx === list.length - 1;
+  requestAnimationFrame(syncChrome);
 }
 
 function render(next){
@@ -428,6 +435,21 @@ function render(next){
   view = next;
   paintBar();
 }
+
+/* ------------------------------------------------------------------
+   Keep the top padding equal to the actual height of the fixed chrome.
+   The overview strip stacks on narrow screens and grows well past any
+   hardcoded value, which would otherwise clip the top of the image.
+   ------------------------------------------------------------------ */
+function syncChrome(){
+  const ov = document.getElementById('overview');
+  const shown = ov.classList.contains('show');
+  const h = shown ? Math.ceil(ov.getBoundingClientRect().bottom) + 14 : 96;
+  document.documentElement.style.setProperty('--barTop', h + 'px');
+}
+addEventListener('resize', syncChrome);
+addEventListener('orientationchange', syncChrome);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncChrome);
 
 function route(){ render(ROUTES[location.hash] ?? 'landing'); }
 addEventListener('hashchange', route);
@@ -453,6 +475,7 @@ addEventListener('keydown', e => {
 
 route();
 paintBar();
+syncChrome();
 </script>
 </body>
 </html>
