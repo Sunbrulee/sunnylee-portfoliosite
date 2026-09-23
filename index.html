@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Portfolio concept: cool near-white editorial scroll, sage accent, Switzer grotesque, charcoal case overlays.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="dark">
 <title>Sunny Lee, product design leadership</title>
 <!--
   IMAGE SLOTS
@@ -322,6 +322,40 @@ body.locked{overflow:hidden}
   html{scroll-behavior:auto}
   .stack .f,.case,.bgword{transition:none}
 }
+
+/* ── dark variant ─────────────────────────────────────── */
+:root{
+  --paper:#16181C;
+  --ink:#ECEEF1;
+  --ink-soft:#A2ABB5;
+  --rule:#2E333A;
+  --rule-soft:#22262B;
+  --accent:#9CC4A0;
+  --accent-deep:#B4D4B7;
+  --char:#0F1114;
+  --char-ink:#ECEEF1;
+  --char-soft:#98A1AC;
+  --char-rule:#2A2F35;
+  --accent-light:#9CC4A0;
+}
+body{background:var(--paper);color:var(--ink)}
+.bgword span{color:#454B52}
+.stack{background:#1D2126}
+.card{background:#1D2126;border-color:#2E333A}
+.card{--c:#9CC4A0}
+.card.c2{--c:#D8BC6A}.card.c3{--c:#6FB8AE}.card.c4{--c:#7FAEDC}
+.card .ic{border-color:#2E333A}
+.card .tags span{color:var(--c);border-color:color-mix(in srgb,var(--c) 30%,#16181C);background:color-mix(in srgb,var(--c) 10%,#16181C)}
+.tags span{color:var(--ink-soft);border-color:var(--rule)}
+.case{background:var(--ov,#1D2126)}
+.case .stack{background:var(--plate)}
+.case .shut{background:color-mix(in srgb,var(--ov,#1D2126) 92%,transparent)}
+.case .stack .spec{background:color-mix(in srgb,var(--ov,#1D2126) 80%,transparent);border:0}
+.stack .spec{color:var(--ink-soft);background:var(--paper);border-color:var(--rule)}
+footer{background:#0F1114;border-top:1px solid #2A2F35}
+.about .acts a:hover{background:var(--ink);color:#16181C}
+.go:hover svg,.go:focus-visible svg{stroke:#16181C}
+.go:hover svg,.go:focus-visible svg{stroke:#16181C}
 </style>
 
 </head>
@@ -436,7 +470,7 @@ body.locked{overflow:hidden}
       <div><span>Elsewhere</span><a href="https://www.linkedin.com/in/sunyounglee/">LinkedIn ↗</a></div>
       <div><span>Location</span>Vancouver, BC<br>Remote &amp; hybrid</div>
     </div>
-    <div class="rule mono"><span>© Sunny Lee, 2026</span><span>Concept A</span></div>
+    <div class="rule mono"><span>© Sunny Lee, 2026</span><span>Vancouver, BC</span></div>
   </div>
 </footer>
 
@@ -492,7 +526,7 @@ const HERO = [
   "img/3f946f4ab3.webp",
   "img/c765628014.webp",
   "img/6270b855d2.webp",
-  "img/6a48e1eac5.webp",
+  "img/c5c0180a56.webp",
   "img/795ee7c498.webp",
 ];
 
