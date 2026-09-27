@@ -536,8 +536,7 @@ const frameHTML=(cs,alt="")=>cs.map((c,i)=>`<div class="f${i?"":" on"}"${fill(c,
 
 /* ── hero stack ── */
 const heroStack=document.getElementById("heroStack");
-const shuffled=[...HERO].sort(()=>Math.random()-.5);
-heroStack.insertAdjacentHTML("afterbegin", frameHTML(shuffled));
+heroStack.insertAdjacentHTML("afterbegin", frameHTML(HERO));
 
 /* ── work cards ── */
 document.getElementById("projects").innerHTML = PROJECTS.map((p,i)=>`
@@ -573,8 +572,8 @@ function cycler(stack,ms,random){
       if(reset){ fs[i].classList.remove("on"); i=0; fs[0].classList.add("on"); } }
   };
 }
-/* hero: autoplays ~1.2s a frame, random order; still under reduced motion, paused off-screen */
-const hero=cycler(heroStack,1200,true);
+/* hero: autoplays ~1.2s a frame, steps hero1 through hero10 in order, then loops; still under reduced motion, paused off-screen */
+const hero=cycler(heroStack,1200,false);
 let heroVisible=true;
 const syncHero=()=>{ (heroVisible && !document.hidden) ? hero.start() : hero.stop(false); };
 new IntersectionObserver(([e])=>{heroVisible=e.isIntersecting;syncHero();}).observe(heroStack);
